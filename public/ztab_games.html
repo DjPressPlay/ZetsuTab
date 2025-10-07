@@ -23,20 +23,25 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
-    /* HEADER NAV */
+    /* ===== HEADER NAV ===== */
     header {
+      width: 100%;
       background: var(--panel);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .logo {
-      font-size: 20px;
+      font-size: 22px;
       color: var(--accent);
       font-weight: 600;
       letter-spacing: 1px;
@@ -44,7 +49,8 @@
 
     nav {
       display: flex;
-      gap: 20px;
+      gap: 25px;
+      align-items: center;
     }
 
     nav a {
@@ -56,23 +62,79 @@
 
     nav a:hover, nav a.active { color: var(--accent); }
 
-    /* MAIN BODY */
+    .profile-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #1b1b1f;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 4px 10px;
+    }
+
+    .profile-box img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+    }
+
+    .profile-box span {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ===== BANNER ===== */
+    .banner {
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 20px;
+      background: linear-gradient(90deg, #111, #0b0b0d, #111);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+
+    .banner img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.35;
+    }
+
+    .banner h1 {
+      position: relative;
+      font-size: 34px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      z-index: 2;
+      text-shadow: 0 0 20px rgba(0,224,255,0.4);
+    }
+
+    /* ===== MAIN CONTENT ===== */
     main {
-      flex: 1;
-      padding: 40px 60px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 40px 20px 80px;
       display: flex;
       flex-direction: column;
-      gap: 50px;
+      gap: 60px;
     }
 
     section h2 {
-      font-size: 18px;
+      font-size: 20px;
       color: var(--accent);
       margin-bottom: 15px;
-      letter-spacing: 0.5px;
     }
 
-    /* ROW SCROLL */
     .scroll-row {
       display: flex;
       gap: 20px;
@@ -80,25 +142,25 @@
       scroll-behavior: smooth;
       padding-bottom: 10px;
     }
+
     .scroll-row::-webkit-scrollbar { height: 6px; }
     .scroll-row::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
-    /* GAME CARD SMALL */
     .game-icon {
-      width: 120px;
+      width: 130px;
       flex: 0 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      color: var(--text);
       text-decoration: none;
+      color: var(--text);
     }
 
     .game-icon img {
       width: 100%;
-      height: 120px;
-      border-radius: 18px;
+      height: 130px;
+      border-radius: 20px;
       object-fit: cover;
       margin-bottom: 8px;
       border: 1px solid var(--border);
@@ -107,20 +169,13 @@
 
     .game-icon:hover img {
       transform: scale(1.05);
-      box-shadow: 0 0 10px rgba(0, 224, 255, 0.3);
+      box-shadow: 0 0 12px rgba(0,224,255,0.4);
     }
 
-    .game-icon span {
-      font-size: 14px;
-      margin-bottom: 2px;
-    }
+    .game-icon span { font-size: 14px; margin-bottom: 2px; }
+    .rating { font-size: 12px; color: var(--muted); }
 
-    .rating {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* GAME CARD LARGE */
+    /* LARGE GRID */
     .large-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -180,6 +235,7 @@
     .card-info a:hover { opacity: 0.8; }
 
     footer {
+      width: 100%;
       background: var(--panel);
       border-top: 1px solid var(--border);
       color: var(--muted);
@@ -192,14 +248,24 @@
 <body>
 
   <header>
-    <div class="logo">ZTAB Games</div>
+    <div class="logo">ZTAB</div>
     <nav>
       <a href="#" class="active">Games</a>
       <a href="#">Apps</a>
-      <a href="#">Updates</a>
-      <a href="#">About</a>
+      <a href="#">Movies & TV</a>
+      <a href="#">Books</a>
     </nav>
+    <div class="profile-box">
+      <img src="https://i.imgur.com/FmWUs1H.png" alt="Artworqq">
+      <span>Artworqq</span>
+    </div>
   </header>
+
+  <!-- Banner -->
+  <div class="banner">
+    <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Banner Background">
+    <h1>Zetsumetsu Games</h1>
+  </div>
 
   <main>
     <!-- Featured Row -->
