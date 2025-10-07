@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZTAB — Account</title>
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --panel: #16161a;
+      --accent: #00e0ff;
+      --text: #eaeaea;
+      --muted: #999;
+      --border: #222;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      width: 240px;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: var(--accent);
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-item {
+      padding: 10px 0;
+      font-size: 15px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      color: var(--accent);
+    }
+
+    /* ===== Main Layout ===== */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      height: 60px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    header .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .user img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+    /* ===== Content ===== */
+    .content {
+      flex: 1;
+      display: flex;
+      overflow: auto;
+    }
+
+    .content-main {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .banner {
+      background: linear-gradient(135deg, #111, var(--panel));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .banner h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .banner p {
+      color: var(--muted);
+    }
+
+    .profile-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .card h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      height: 50px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 14px;
+      background: var(--panel);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 800px) {
+      .sidebar {
+        display: none;
+      }
+      .profile-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>ZTAB</h2>
+    <div class="nav-item active">Profile</div>
+    <div class="nav-item">Settings</div>
+    <div class="nav-item">Security</div>
+    <div class="nav-item">Connected Apps</div>
+    <div class="nav-item">Billing</div>
+    <div class="nav-item">Logout</div>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1>Account</h1>
+      <div class="user">
+        <span>Kevin Suber</span>
+        <img src="https://i.pravatar.cc/100" alt="User" />
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="content-main">
+        <div class="banner">
+          <h2>Welcome Back, Kevin.</h2>
+          <p>Your Zetsu profile is active and synced with all core systems.</p>
+        </div>
+
+        <div class="profile-section">
+          <div class="card">
+            <h3>Account Info</h3>
+            <p>Email: kevin@zetsu.io</p>
+            <p>Member Since: 2023</p>
+            <p>Status: Verified</p>
+          </div>
+
+          <div class="card">
+            <h3>ZTAB Access</h3>
+            <p>Current Tier: Developer</p>
+            <p>Connected Devices: 3</p>
+            <p>Session ID: active</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>© 2025 Zetsumetsu Corporation</footer>
+  </div>
+</body>
+</html>
