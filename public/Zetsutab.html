@@ -270,15 +270,17 @@
 
 
     /* FOOTER — 3-1-3 ABSOLUTE CENTERING */
-    .z-footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: #000;
-      padding: 14px 32px;
-      font-size: 0.9em;
-      box-sizing: border-box;
-    }
+.z-footer {
+  position: relative; /* ← instead of absolute */
+  bottom: 0;
+  width: 100%;
+  background: #000;
+  padding: 14px 32px;
+  font-size: 0.9em;
+  box-sizing: border-box;
+  margin-top: 40px; /* optional: give breathing room */
+}
+
 
     .z-footer-inner {
       position: relative;
