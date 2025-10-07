@@ -41,8 +41,21 @@
       max-width:1200px;
       text-align:center;
       padding:60px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:80px;
     }
-    h1{font-size:34px;color:var(--accent);margin-bottom:40px;}
+    h1{font-size:36px;color:var(--accent);margin-bottom:20px;}
+    h2.section-title{
+      font-size:26px;
+      color:var(--accent);
+      margin-bottom:30px;
+      border-bottom:1px solid var(--border);
+      padding-bottom:10px;
+      text-align:left;
+    }
+
+    /* GRID */
     .device-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
@@ -68,7 +81,7 @@
       border-bottom:1px solid var(--border);
     }
     .device-info{padding:20px;}
-    .device-info h2{
+    .device-info h3{
       color:var(--accent);
       font-size:20px;
       margin-bottom:8px;
@@ -89,6 +102,9 @@
       transition:.2s;
     }
     .device-info a:hover{opacity:.8;}
+
+    /* SECTION SPACING */
+    section{display:flex;flex-direction:column;align-items:center;gap:40px;}
 
     /* BOTTOM BANNER */
     .bottom-banner{
@@ -168,39 +184,56 @@
 
   <main>
     <h1>Zetsumetsu Devices</h1>
-    <div class="device-grid">
-      <div class="device-card">
-        <img src="https://i.imgur.com/fn3HRHt.jpeg" alt="Elo Device">
-        <div class="device-info">
-          <h2>Elo</h2>
-          <p>Emergency-link smart case with instant alert button and encrypted signal relay.</p>
-          <a href="#">View Details</a>
-        </div>
-      </div>
 
-      <div class="device-card">
-        <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Elo X">
-        <div class="device-info">
-          <h2>Elo X</h2>
-          <p>Projector device running the Elo App — holographic interface in your pocket.</p>
-          <a href="#">View Details</a>
+    <!-- Phones -->
+    <section>
+      <h2 class="section-title">Phones</h2>
+      <div class="device-grid">
+        <div class="device-card">
+          <img src="https://i.imgur.com/Xwcok0F.jpeg" alt="Elo Z">
+          <div class="device-info">
+            <h3>Elo Z</h3>
+            <p>Full phone built with Elo OS and integrated projector — the complete Z-class system.</p>
+            <a href="#">View Details</a>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="device-card">
-        <img src="https://i.imgur.com/Xwcok0F.jpeg" alt="Elo Z">
-        <div class="device-info">
-          <h2>Elo Z</h2>
-          <p>Full phone built with Elo OS and integrated projector — the complete Z-class system.</p>
-          <a href="#">View Details</a>
+    <!-- Holographic Systems -->
+    <section>
+      <h2 class="section-title">Holographic Systems</h2>
+      <div class="device-grid">
+        <div class="device-card">
+          <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Holo Driver 4.0">
+          <div class="device-info">
+            <h3>Holo Driver 4.0</h3>
+            <p>Compact hologram driver using waveguide optics and light-field modulation for AR display.</p>
+            <a href="#">View Details</a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Eco Devices -->
+    <section>
+      <h2 class="section-title">Eco Devices</h2>
+      <div class="device-grid">
+        <div class="device-card">
+          <img src="https://i.imgur.com/fn3HRHt.jpeg" alt="Resin Upcycler">
+          <div class="device-info">
+            <h3>Resin Upcycler</h3>
+            <p>UV-curing and grinding system that reclaims hardened resin into safe reusable material.</p>
+            <a href="#">View Details</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <div class="bottom-banner">
     <h2>Experience the Future of Z-Devices</h2>
-    <p>Integrated design. Unified intelligence. Explore the next generation of connected hardware built by Zetsumetsu Corp.</p>
+    <p>From holographic projection to sustainable creation — every device is designed to connect the physical and digital world through the Zetsumetsu framework.</p>
     <a href="#">Learn More</a>
   </div>
 
