@@ -1,0 +1,19 @@
+[build]
+  # No build step. We serve static files from /public.
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# API routes → Netlify Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback (Zetsu Start)
+[[redirects]]
+  from = "/*"
+  to = "/Zetsutab.html"
+  status = 200
