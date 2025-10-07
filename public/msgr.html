@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZTAB — Direct Messenger</title>
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --panel: #16161a;
+      --accent: #00e0ff;
+      --text: #eaeaea;
+      --muted: #999;
+      --border: #222;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      width: 240px;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: var(--accent);
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-item {
+      padding: 10px 0;
+      font-size: 15px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      color: var(--accent);
+    }
+
+    /* ===== Main ===== */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 60px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    header .search {
+      flex: 0 0 250px;
+    }
+
+    header input {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #0f0f12;
+      color: var(--text);
+      outline: none;
+    }
+
+    /* ===== Layout ===== */
+    .content {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Message List */
+    .message-list {
+      width: 320px;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      overflow-y: auto;
+    }
+
+    .message-item {
+      padding: 15px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .message-item:hover {
+      background: #111115;
+    }
+
+    .message-item.active {
+      background: #15151a;
+    }
+
+    .message-item h3 {
+      color: var(--accent);
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .message-item p {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Message View */
+    .message-view {
+      flex: 1;
+      background: var(--panel);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .message-header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px;
+    }
+
+    .message-header h2 {
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    .message-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+
+    .message-body p {
+      color: var(--text);
+      margin-bottom: 1em;
+    }
+
+    /* Composer */
+    .composer {
+      border-top: 1px solid var(--border);
+      background: #101014;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .composer input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+    }
+
+    .composer button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .composer button:hover {
+      opacity: 0.8;
+    }
+
+    /* Footer */
+    footer {
+      height: 40px;
+      background: var(--panel);
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        display: none;
+      }
+      .message-list {
+        width: 260px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>ZTAB</h2>
+    <div class="nav-item active">Inbox</div>
+    <div class="nav-item">Sent</div>
+    <div class="nav-item">Drafts</div>
+    <div class="nav-item">Starred</div>
+    <div class="nav-item">Trash</div>
+    <div class="nav-item">Settings</div>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1>Messages</h1>
+      <div class="search">
+        <input type="text" placeholder="Search messages..." />
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="message-list">
+        <div class="message-item active">
+          <h3>Jessica AI</h3>
+          <p>Hey Kevin, I finished indexing the Supabase logs...</p>
+        </div>
+        <div class="message-item">
+          <h3>Zetsu System</h3>
+          <p>Your account sync was completed successfully.</p>
+        </div>
+        <div class="message-item">
+          <h3>Anna</h3>
+          <p>I found an alternative method to power the EM Harvester.</p>
+        </div>
+      </div>
+
+      <div class="message-view">
+        <div class="message-header">
+          <h2>Jessica AI</h2>
+          <p class="muted">Sent: Today • 2:43 PM</p>
+        </div>
+        <div class="message-body">
+          <p>Hey Kevin, I finished indexing the Supabase logs and cross-linking them to the SignalZ data layer. You can now trace all session IDs directly from the ZTAB panel.</p>
+          <p>— Jessica</p>
+        </div>
+        <div class="composer">
+          <input type="text" placeholder="Type a reply..." />
+          <button>Send</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>© 2025 Zetsumetsu Corporation — Direct Messenger</footer>
+  </div>
+</body>
+</html>
