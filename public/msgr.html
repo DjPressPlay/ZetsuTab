@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZTAB — Direct Messenger</title>
+  <title>ZTAB — Messenger</title>
   <style>
     :root {
       --bg: #0d0d0f;
@@ -31,7 +31,7 @@
 
     /* ===== Sidebar ===== */
     .sidebar {
-      width: 240px;
+      width: 280px;
       background: var(--panel);
       border-right: 1px solid var(--border);
       display: flex;
@@ -39,12 +39,48 @@
       padding: 20px;
     }
 
+    .profile-card {
+      text-align: center;
+      background: #1b1b1f;
+      border-radius: 10px;
+      padding: 20px 10px;
+      margin-bottom: 30px;
+      border: 1px solid var(--border);
+    }
+
+    .profile-card img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      border: 2px solid var(--accent);
+      object-fit: cover;
+    }
+
+    .profile-card h3 {
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .profile-card h3 span {
+      color: var(--muted);
+      font-weight: normal;
+    }
+
+    .profile-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
     .sidebar h2 {
       color: var(--accent);
-      font-size: 18px;
-      margin-bottom: 20px;
+      font-size: 16px;
+      margin-bottom: 15px;
       text-transform: uppercase;
       letter-spacing: 1px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
     }
 
     .nav-item {
@@ -205,7 +241,6 @@
       opacity: 0.8;
     }
 
-    /* Footer */
     footer {
       height: 40px;
       background: var(--panel);
@@ -229,7 +264,13 @@
 </head>
 <body>
   <div class="sidebar">
-    <h2>ZTAB</h2>
+    <div class="profile-card">
+      <img src="https://i.imgur.com/FmWUs1H.png" alt="Artworqq">
+      <h3>Artworqq <span>• Person 1</span></h3>
+      <p>keysub.kevin@gmail.com</p>
+    </div>
+
+    <h2>Messages</h2>
     <div class="nav-item active">Inbox</div>
     <div class="nav-item">Sent</div>
     <div class="nav-item">Drafts</div>
@@ -240,7 +281,7 @@
 
   <div class="main">
     <header>
-      <h1>Messages</h1>
+      <h1>Direct Messenger</h1>
       <div class="search">
         <input type="text" placeholder="Search messages..." />
       </div>
@@ -250,26 +291,26 @@
       <div class="message-list">
         <div class="message-item active">
           <h3>Jessica AI</h3>
-          <p>Hey Kevin, I finished indexing the Supabase logs...</p>
+          <p>Hey Kevin, Supabase sync logs are indexed now...</p>
         </div>
         <div class="message-item">
           <h3>Zetsu System</h3>
-          <p>Your account sync was completed successfully.</p>
+          <p>Your access token has been refreshed.</p>
         </div>
         <div class="message-item">
           <h3>Anna</h3>
-          <p>I found an alternative method to power the EM Harvester.</p>
+          <p>I found an alternative resonance pattern for EM Harvester.</p>
         </div>
       </div>
 
       <div class="message-view">
         <div class="message-header">
           <h2>Jessica AI</h2>
-          <p class="muted">Sent: Today • 2:43 PM</p>
+          <p class="muted">Today • 2:43 PM</p>
         </div>
         <div class="message-body">
-          <p>Hey Kevin, I finished indexing the Supabase logs and cross-linking them to the SignalZ data layer. You can now trace all session IDs directly from the ZTAB panel.</p>
-          <p>— Jessica</p>
+          <p>Hey Kevin, the ZTAB system has full cross-sync with the SignalZ data layer. You can now trace session IDs and connection logs directly through the messenger tab.</p>
+          <p>– Jessica</p>
         </div>
         <div class="composer">
           <input type="text" placeholder="Type a reply..." />
