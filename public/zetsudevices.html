@@ -23,6 +23,8 @@
       align-items:center;
       min-height:100vh;
     }
+
+    /* HEADER */
     header{
       width:100%;
       background:var(--panel);
@@ -36,26 +38,55 @@
     nav{display:flex;gap:25px;}
     nav a{color:var(--muted);text-decoration:none;font-size:15px;}
     nav a:hover,nav a.active{color:var(--accent);}
+
     main{
       width:100%;
       max-width:1200px;
       text-align:center;
-      padding:60px 20px;
+      padding:60px 20px 100px;
       display:flex;
       flex-direction:column;
-      gap:80px;
-    }
-    h1{font-size:36px;color:var(--accent);margin-bottom:20px;}
-    h2.section-title{
-      font-size:26px;
-      color:var(--accent);
-      margin-bottom:30px;
-      border-bottom:1px solid var(--border);
-      padding-bottom:10px;
-      text-align:left;
+      align-items:center;
     }
 
-    /* GRID */
+    h1{font-size:36px;color:var(--accent);margin-bottom:40px;}
+
+    /* TABS BAR */
+    .tabs{
+      display:flex;
+      justify-content:center;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:30px;
+      overflow:hidden;
+      margin-bottom:40px;
+    }
+    .tab-btn{
+      flex:1;
+      padding:14px 30px;
+      color:var(--muted);
+      font-weight:500;
+      cursor:pointer;
+      background:none;
+      border:none;
+      outline:none;
+      transition:.25s;
+    }
+    .tab-btn:hover{color:var(--accent);}
+    .tab-btn.active{
+      background:var(--accent);
+      color:#000;
+      font-weight:600;
+    }
+
+    /* DEVICE GRID */
+    .tab-content{
+      display:none;
+      width:100%;
+      animation:fadeIn .4s ease;
+    }
+    .tab-content.active{display:block;}
+
     .device-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
@@ -103,13 +134,9 @@
     }
     .device-info a:hover{opacity:.8;}
 
-    /* SECTION SPACING */
-    section{display:flex;flex-direction:column;align-items:center;gap:40px;}
-
     /* BOTTOM BANNER */
     .bottom-banner{
       width:100%;
-      margin-top:60px;
       background:linear-gradient(90deg,#0b0b0d,#111,#0b0b0d);
       border-top:1px solid var(--border);
       border-bottom:1px solid var(--border);
@@ -168,6 +195,11 @@
       color:var(--muted);
       font-size:13px;
     }
+
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(20px);}
+      to{opacity:1;transform:translateY(0);}
+    }
   </style>
 </head>
 <body>
@@ -185,9 +217,15 @@
   <main>
     <h1>Zetsumetsu Devices</h1>
 
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="openTab(event,'phones')">Phones</button>
+      <button class="tab-btn" onclick="openTab(event,'holographic')">Holographic</button>
+      <button class="tab-btn" onclick="openTab(event,'eco')">Eco</button>
+    </div>
+
     <!-- Phones -->
-    <section>
-      <h2 class="section-title">Phones</h2>
+    <div id="phones" class="tab-content active">
       <div class="device-grid">
         <div class="device-card">
           <img src="https://i.imgur.com/Xwcok0F.jpeg" alt="Elo Z">
@@ -198,11 +236,10 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Holographic Systems -->
-    <section>
-      <h2 class="section-title">Holographic Systems</h2>
+    <!-- Holographic -->
+    <div id="holographic" class="tab-content">
       <div class="device-grid">
         <div class="device-card">
           <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Holo Driver 4.0">
@@ -213,11 +250,10 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Eco Devices -->
-    <section>
-      <h2 class="section-title">Eco Devices</h2>
+    <!-- Eco -->
+    <div id="eco" class="tab-content">
       <div class="device-grid">
         <div class="device-card">
           <img src="https://i.imgur.com/fn3HRHt.jpeg" alt="Resin Upcycler">
@@ -228,16 +264,28 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
+
   </main>
 
   <div class="bottom-banner">
     <h2>Experience the Future of Z-Devices</h2>
-    <p>From holographic projection to sustainable creation — every device is designed to connect the physical and digital world through the Zetsumetsu framework.</p>
+    <p>From holographic projection to sustainable creation — every device is built with the Zetsumetsu code.</p>
     <a href="#">Learn More</a>
   </div>
 
   <footer>© 2025 Zetsumetsu Corporation™ | All Rights Reserved</footer>
+
+  <script>
+    function openTab(evt, tabId) {
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(c => c.classList.remove('active'));
+      const tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(t => t.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      evt.currentTarget.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
