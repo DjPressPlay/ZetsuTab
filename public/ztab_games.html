@@ -26,7 +26,7 @@
       align-items: center;
     }
 
-    /* ===== HEADER NAV ===== */
+    /* HEADER */
     header {
       width: 100%;
       background: var(--panel);
@@ -39,210 +39,75 @@
       top: 0;
       z-index: 10;
     }
-
-    .logo {
-      font-size: 22px;
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    nav {
-      display: flex;
-      gap: 25px;
-      align-items: center;
-    }
-
-    nav a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 15px;
-      transition: 0.2s;
-    }
-
+    .logo { font-size: 22px; color: var(--accent); font-weight: 600; letter-spacing: 1px; }
+    nav { display: flex; gap: 25px; align-items: center; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 15px; transition: .2s; }
     nav a:hover, nav a.active { color: var(--accent); }
-
-    .profile-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #1b1b1f;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      padding: 4px 10px;
+    .profile-box{
+      display:flex; align-items:center; gap:10px;
+      background:#1b1b1f; border:1px solid var(--border);
+      border-radius:30px; padding:4px 10px;
     }
+    .profile-box img{ width:32px; height:32px; border-radius:50%; border:2px solid var(--accent); object-fit:cover; }
+    .profile-box span{ font-size:14px; color:var(--text); font-weight:500; }
 
-    .profile-box img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      object-fit: cover;
+    /* BANNER */
+    .banner{
+      width:100%; max-width:1200px; margin-top:20px;
+      background:linear-gradient(90deg,#111,#0b0b0d,#111);
+      border-radius:16px; overflow:hidden; position:relative; height:260px;
+      display:flex; align-items:center; justify-content:center; border:1px solid var(--border);
     }
+    .banner img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.35; }
+    .banner h1{ position:relative; font-size:34px; letter-spacing:2px; color:var(--accent); z-index:2; text-shadow:0 0 20px rgba(0,224,255,.4); }
 
-    .profile-box span {
-      font-size: 14px;
-      color: var(--text);
-      font-weight: 500;
+    /* MAIN */
+    main{ width:100%; max-width:1200px; padding:40px 20px 80px; display:flex; flex-direction:column; gap:60px; }
+    section h2{ font-size:20px; color:var(--accent); margin-bottom:15px; }
+
+    .scroll-row{
+      display:flex; gap:20px; overflow-x:auto; scroll-behavior:smooth; padding-bottom:10px;
     }
+    .scroll-row::-webkit-scrollbar{ height:6px; }
+    .scroll-row::-webkit-scrollbar-thumb{ background:var(--accent); border-radius:3px; }
 
-    /* ===== BANNER ===== */
-    .banner {
-      width: 100%;
-      max-width: 1200px;
-      margin-top: 20px;
-      background: linear-gradient(90deg, #111, #0b0b0d, #111);
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      height: 260px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
+    /* FEATURED = CENTERED */
+    section.featured .scroll-row{
+      justify-content:center;        /* <-- centers row when items don't fill width */
+      scroll-snap-type:x proximity;
     }
+    section.featured .game-icon{ scroll-snap-align:center; }
 
-    .banner img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.35;
+    .game-icon{
+      width:130px; flex:0 0 auto; display:flex; flex-direction:column; align-items:center;
+      text-align:center; text-decoration:none; color:var(--text);
     }
-
-    .banner h1 {
-      position: relative;
-      font-size: 34px;
-      letter-spacing: 2px;
-      color: var(--accent);
-      z-index: 2;
-      text-shadow: 0 0 20px rgba(0,224,255,0.4);
+    .game-icon img{
+      width:100%; height:130px; border-radius:20px; object-fit:cover; margin-bottom:8px;
+      border:1px solid var(--border); transition:.25s;
     }
+    .game-icon:hover img{ transform:scale(1.05); box-shadow:0 0 12px rgba(0,224,255,.4); }
+    .game-icon span{ font-size:14px; margin-bottom:2px; }
+    .rating{ font-size:12px; color:var(--muted); }
 
-    /* ===== MAIN CONTENT ===== */
-    main {
-      width: 100%;
-      max-width: 1200px;
-      padding: 40px 20px 80px;
-      display: flex;
-      flex-direction: column;
-      gap: 60px;
+    /* GRID */
+    .large-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:30px; }
+    .large-card{
+      background:var(--panel); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+      display:flex; flex-direction:column; transition:.25s;
     }
-
-    section h2 {
-      font-size: 20px;
-      color: var(--accent);
-      margin-bottom: 15px;
+    .large-card:hover{ transform:translateY(-4px); box-shadow:0 0 12px rgba(0,224,255,.2); }
+    .large-card img{ width:100%; height:160px; object-fit:cover; border-bottom:1px solid var(--border); }
+    .card-info{ padding:15px; }
+    .card-info h3{ color:var(--accent); font-size:16px; margin-bottom:4px; }
+    .card-info p{ font-size:13px; color:var(--muted); margin-bottom:8px; }
+    .card-info a{
+      text-decoration:none; color:#000; background:var(--accent); display:inline-block;
+      padding:6px 12px; border-radius:6px; font-weight:600; font-size:13px; transition:.2s;
     }
+    .card-info a:hover{ opacity:.8; }
 
-    .scroll-row {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      padding-bottom: 10px;
-    }
-
-    .scroll-row::-webkit-scrollbar { height: 6px; }
-    .scroll-row::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
-
-    .game-icon {
-      width: 130px;
-      flex: 0 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .game-icon img {
-      width: 100%;
-      height: 130px;
-      border-radius: 20px;
-      object-fit: cover;
-      margin-bottom: 8px;
-      border: 1px solid var(--border);
-      transition: 0.25s;
-    }
-
-    .game-icon:hover img {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(0,224,255,0.4);
-    }
-
-    .game-icon span { font-size: 14px; margin-bottom: 2px; }
-    .rating { font-size: 12px; color: var(--muted); }
-
-    /* LARGE GRID */
-    .large-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
-    }
-
-    .large-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: 0.25s;
-    }
-
-    .large-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 12px rgba(0, 224, 255, 0.2);
-    }
-
-    .large-card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .card-info {
-      padding: 15px;
-    }
-
-    .card-info h3 {
-      color: var(--accent);
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .card-info p {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .card-info a {
-      text-decoration: none;
-      color: #000;
-      background: var(--accent);
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 13px;
-      transition: 0.2s;
-    }
-
-    .card-info a:hover { opacity: 0.8; }
-
-    footer {
-      width: 100%;
-      background: var(--panel);
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
-      padding: 10px 0;
-    }
+    footer{ width:100%; background:var(--panel); border-top:1px solid var(--border); color:var(--muted); font-size:13px; text-align:center; padding:10px 0; }
   </style>
 </head>
 <body>
@@ -261,156 +126,40 @@
     </div>
   </header>
 
-  <!-- Banner -->
   <div class="banner">
     <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Banner Background">
     <h1>Zetsumetsu Games</h1>
   </div>
 
   <main>
-    <!-- Featured Row -->
-    <section>
+    <!-- FEATURED: CENTERED -->
+    <section class="featured">
       <h2>Featured Games</h2>
       <div class="scroll-row">
         <a href="#" class="game-icon">
           <img src="https://i.imgur.com/vGpZqTX.png" alt="Z-Sweeper" />
-          <span>Z-Sweeper</span>
-          <div class="rating">4.6 ★</div>
+          <span>Z-Sweeper</span><div class="rating">4.6 ★</div>
         </a>
         <a href="#" class="game-icon">
           <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Z-Runner" />
-          <span>Z-Runner</span>
-          <div class="rating">4.4 ★</div>
+          <span>Z-Runner</span><div class="rating">4.4 ★</div>
         </a>
         <a href="#" class="game-icon">
           <img src="https://i.imgur.com/5AOzAE8.jpeg" alt="SignalZ" />
-          <span>SignalZ</span>
-          <div class="rating">4.7 ★</div>
+          <span>SignalZ</span><div class="rating">4.7 ★</div>
         </a>
         <a href="#" class="game-icon">
           <img src="https://i.imgur.com/fn3HRHt.jpeg" alt="Jessica Engine" />
-          <span>Jessica Engine</span>
-          <div class="rating">4.9 ★</div>
+          <span>Jessica Engine</span><div class="rating">4.9 ★</div>
         </a>
         <a href="#" class="game-icon">
           <img src="https://i.imgur.com/Xwcok0F.jpeg" alt="Elo System" />
-          <span>Elo System</span>
-          <div class="rating">4.8 ★</div>
+          <span>Elo System</span><div class="rating">4.8 ★</div>
         </a>
       </div>
     </section>
 
-    <!-- Just Added Grid -->
-    <section>
-      <h2>Just Added</h2>
-      <div class="large-grid">
-        <div class="large-card">
-          <img src="https://i.imgur.com/RnxdIwn.jpeg" alt="ZTAB Racer" />
-          <div class="card-info">
-            <h3>ZTAB Racer</h3>
-            <p>Speed across the neon grid. Drift, upgrade, and unlock hidden circuits inside Z-Space.</p>
-            <a href="files/ztabracer.apk" download>Download APK</a>
-          </div>
-        </div>
-
-        <div class="large-card">
-          <img src="https://i.imgur.com/fn3HRHt.jpeg" alt="Jessica V Engine" />
-          <div class="card-info">
-            <h3>Jessica V Engine</h3>
-            <p>AI companion core for the Z-Browser. Manage, moderate, and broadcast with style.</p>
-            <a href="files/jessica_engine.apk" download>Download APK</a>
-          </div>
-        </div>
-
-        <div class="large-card">
-          <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Elo Device Link" />
-          <div class="card-info">
-            <h3>Elo Device Link</h3>
-            <p>Connect your physical Elo units with the digital core. Emergency systems & alerts.</p>
-            <a href="files/elo_device.apk" download>Download APK</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>© 2025 Zetsumetsu Corporation™ | All Rights Reserved</footer>
-
-</body>
-</html>
-
-</head>
-<body>
-
-  <header>
-    <div class="logo">ZTAB</div>
-    <nav>
-      <a href="#" class="active">Games</a>
-      <a href="#">Apps</a>
-      <a href="#">Movies & TV</a>
-      <a href="#">Books</a>
-    </nav>
-    <div class="profile-box">
-      <img src="https://i.imgur.com/FmWUs1H.png" alt="Artworqq">
-      <span>Artworqq</span>
-    </div>
-  </header>
-
-  <!-- Banner -->
-  <div class="banner">
-    <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Banner Background">
-    <h1>Zetsumetsu Games</h1>
-  </div>
-
-  <main>
-    <!-- Featured Row -->
-    <section>
-      <h2>Featured Games</h2>
-      <div class="scroll-row">
-        <a href="#" class="game-icon">
-          <img src="https://i.imgur.com/vGpZqTX.png" alt="Z-Sweeper" />
-          <span>Z-Sweeper</span>
-          <div class="rating">4.6 ★</div>
-        </a>
-        <a href="#" class="game-icon">
-          <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Z-Runner" />
-          <span>Z-Runner</span>
-          <div class="rating">4.4 ★</div>
-        </a>
-        <a href="#" class="game-icon">
-          <img src="https://i.imgur.com/5AOzAE8.jpeg" alt="SignalZ" />
-          <span>SignalZ</span>
-          <div class="rating">4.7 ★</div>
-        </a>
-        <a href="#" class="game-icon">
-          <img src="https://i.imgur.com/fn3HRHt.jpeg" alt="Jessica Engine" />
-          <span>Jessica Engine</span>
-          <div class="rating">4.9 ★</div>
-        </a>
-        <a href="#" class="game-icon">
-          <img src="https://i.imgur.com/Xwcok0F.jpeg" alt="Elo System" />
-          <span>Elo System</span>
-          <div class="rating">4.8 ★</div>
-        </a>
-         <a href="#" class="game-icon">
-          <img src="https://i.imgur.com/vGpZqTX.png" alt="Z-Sweeper" />
-          <span>Z-Sweeper</span>
-          <div class="rating">4.6 ★</div>
-        </a>
-         <a href="#" class="game-icon">
-          <img src="https://i.imgur.com/vGpZqTX.png" alt="Z-Sweeper" />
-          <span>Z-Sweeper</span>
-          <div class="rating">4.6 ★</div>
-        </a>
-         <a href="#" class="game-icon">
-          <img src="https://i.imgur.com/vGpZqTX.png" alt="Z-Sweeper" />
-          <span>Z-Sweeper</span>
-          <div class="rating">4.6 ★</div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Just Added Grid -->
+    <!-- JUST ADDED -->
     <section>
       <h2>Just Added</h2>
       <div class="large-grid">
