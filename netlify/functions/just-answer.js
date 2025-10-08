@@ -1,15 +1,15 @@
-// netlify/functions/just-answer.js
-import { GoogleGenAI } from "@google/genai";
+// functions/just-answer.js
+require("dotenv").config();
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-export async function handler(event) {
-  const CORS = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-  };
+const CORS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
 
+exports.handler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers: CORS, body: "" };
   }
@@ -24,16 +24,35 @@ export async function handler(event) {
       };
     }
 
-    const response = await ai.models.generateContent({
+    // === follow SDK JSON shape ===
+    const payload = {
       model: "gemini-2.5-flash",
-      contents: `Answer clearly in 1–3 sentences:\n${q}`,
+      contents: [{ role: "user", parts: [{ text: `Answer clearly in 1–3 sentences:\n${q}` }] }],
       config: {
         generationConfig: { temperature: 0.2, maxOutputTokens: 120 },
-        thinkingConfig: { thinkingBudget: 0 }, // disables “thinking” mode
+        thinkingConfig: { thinkingBudget: 0 },
       },
-    });
+    };
 
-    const answer = response?.text?.trim() || "No answer found.";
+    const resp = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const data = await resp.json();
+    console.log("Gemini raw:", JSON.stringify(data, null, 2));
+
+    const answer =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+      data?.candidates?.[0]?.content?.[0]?.parts?.[0]?.text?.trim() ||
+      data?.candidates?.[0]?.output_text?.trim() ||
+      data?.candidates?.[0]?.text?.trim() ||
+      data?.error?.message ||
+      "No answer found.";
 
     return {
       statusCode: 200,
@@ -47,4 +66,4 @@ export async function handler(event) {
       body: JSON.stringify({ success: false, error: err.message }),
     };
   }
-}
+};
