@@ -11,6 +11,7 @@ exports.handler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers: CORS, body: "" };
   }
+
   try {
     const { q } = JSON.parse(event.body || "{}");
     if (!q?.trim()) {
@@ -24,17 +25,18 @@ exports.handler = async (event) => {
     const payload = {
       contents: [
         {
-          parts: [
-            { text: `Answer clearly in 1–3 sentences:\n${q}` }
-          ]
+          parts: [{ text: `Answer in 1–3 sentences:\n${q}` }]
+        }
+      ],
+      // include the google_search tool
+      tools: [
+        {
+          google_search: {}
         }
       ],
       generationConfig: {
         temperature: 0.2,
-        maxOutputTokens: 120,
-        thinkingConfig: {
-          thinkingBudget: 0
-        }
+        maxOutputTokens: 120
       }
     };
 
@@ -48,11 +50,10 @@ exports.handler = async (event) => {
     );
 
     const data = await resp.json();
-    console.log("Gemini raw:", JSON.stringify(data, null, 2));
+    console.log("Gemini grounded raw:", JSON.stringify(data, null, 2));
 
     const answer =
       data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
-      data?.candidates?.[0]?.content?.[0]?.parts?.[0]?.text?.trim() ||
       data?.candidates?.[0]?.text?.trim() ||
       "No answer found.";
 
