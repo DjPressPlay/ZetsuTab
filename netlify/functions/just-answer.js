@@ -1,3 +1,4 @@
+// functions/just-answer.js
 require("dotenv").config();
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
@@ -8,16 +9,15 @@ const CORS = {
 };
 
 exports.handler = async (event) => {
-  if (event.httpMethod === "OPTIONS") {
+  if (event.httpMethod === "OPTIONS")
     return { statusCode: 204, headers: CORS, body: "" };
-  }
 
   try {
     const { q } = JSON.parse(event.body || "{}");
     if (!q?.trim()) {
       return {
         statusCode: 400,
-        headers: { ...CORS, "Content-Type": "application/json" },
+        headers: CORS,
         body: JSON.stringify({ error: "Missing 'q' parameter" }),
       };
     }
@@ -25,18 +25,13 @@ exports.handler = async (event) => {
     const payload = {
       contents: [
         {
-          parts: [{ text: `Answer in 1–3 sentences:\n${q}` }]
-        }
-      ],
-      // include the google_search tool
-      tools: [
-        {
-          google_search: {}
+          role: "user",
+          parts: [{ text: q }]
         }
       ],
       generationConfig: {
-        temperature: 0.2,
-        maxOutputTokens: 120
+        temperature: 0.3,
+        maxOutputTokens: 250
       }
     };
 
@@ -45,24 +40,24 @@ exports.handler = async (event) => {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload)
       }
     );
 
     const data = await resp.json();
-    console.log("Gemini grounded raw:", JSON.stringify(data, null, 2));
+    console.log("Gemini raw:", JSON.stringify(data, null, 2));
 
     const answer =
       data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
       data?.candidates?.[0]?.text?.trim() ||
-      "No answer found.";
+      data?.error?.message ||
+      "";
 
     return {
       statusCode: 200,
       headers: { ...CORS, "Content-Type": "application/json" },
       body: JSON.stringify({ answer }),
     };
-
   } catch (err) {
     return {
       statusCode: 500,
