@@ -1,4 +1,3 @@
-// functions/just-answer.js
 require("dotenv").config();
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
@@ -12,6 +11,8 @@ exports.handler = async (event) => {
   if (event.httpMethod === "OPTIONS")
     return { statusCode: 204, headers: CORS, body: "" };
 
+  const log = (msg, data) => console.log("🔍", msg, data || "");
+
   try {
     const { q } = JSON.parse(event.body || "{}");
     if (!q?.trim()) {
@@ -22,30 +23,35 @@ exports.handler = async (event) => {
       };
     }
 
+    const model = "gemini-1.5-flash"; // 👈 safer default
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`;
+
     const payload = {
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: q }]
-        }
-      ],
-      generationConfig: {
-        temperature: 0.3,
-        maxOutputTokens: 250
-      }
+      contents: [{ role: "user", parts: [{ text: q }] }],
+      generationConfig: { temperature: 0.3, maxOutputTokens: 250 },
     };
 
-    const resp = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }
-    );
+    log("→ Sending to Gemini", { model, q });
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-    const data = await resp.json();
-    console.log("Gemini raw:", JSON.stringify(data, null, 2));
+    log("↩ Status", resp.status);
+    const raw = await resp.text();
+    log("↩ Raw body", raw);
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      return {
+        statusCode: 500,
+        headers: CORS,
+        body: JSON.stringify({ error: "Invalid JSON from Gemini", raw }),
+      };
+    }
 
     const answer =
       data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
@@ -56,9 +62,10 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers: { ...CORS, "Content-Type": "application/json" },
-      body: JSON.stringify({ answer }),
+      body: JSON.stringify({ answer, debug: { model, status: resp.status } }),
     };
   } catch (err) {
+    log("🔥 Caught Error", err);
     return {
       statusCode: 500,
       headers: { ...CORS, "Content-Type": "application/json" },
