@@ -1,16 +1,15 @@
 // =======================================================
-// ✅ Jessica "Just Answer" Function
+// ✅ Jessica "Just Answer" Function — Fixed Version
 // Fetches a short Gemini AI answer for a given query (q)
 // =======================================================
 
 // 1️⃣ Load environment variables from .env file
-//    (expects GEMINI_API_KEY=your_key_here)
 require('dotenv').config();
 
-// 2️⃣ Pull the key from environment
+// 2️⃣ Pull API key
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// 3️⃣ Allow browser requests (CORS headers)
+// 3️⃣ Set CORS headers
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -19,16 +18,12 @@ const CORS = {
 
 // =======================================================
 // 🔹 Netlify Handler
-// Handles POST from front-end → talks to Gemini API
 // =======================================================
 exports.handler = async (event) => {
-
-  // --- Handle preflight (browser OPTIONS request)
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers: CORS, body: "" };
   }
 
-  // --- Require valid API key
   if (!GEMINI_API_KEY) {
     return {
       statusCode: 500,
@@ -38,7 +33,6 @@ exports.handler = async (event) => {
   }
 
   try {
-    // --- Parse request body (expects { q: "your question" })
     const { q } = JSON.parse(event.body || "{}");
     if (!q?.trim()) {
       return {
@@ -48,20 +42,18 @@ exports.handler = async (event) => {
       };
     }
 
-    // --- Gemini API payload
+    // === Gemini payload
     const payload = {
       contents: [
         {
           role: "user",
-          parts: [
-            { text: `Answer clearly in 1–3 sentences:\n${q}` }
-          ],
+          parts: [{ text: `Answer clearly in 1–3 sentences:\n${q}` }],
         },
       ],
       generationConfig: { temperature: 0.2, maxOutputTokens: 120 },
     };
 
-    // --- Send request to Gemini
+    // === Fetch from Gemini
     const resp = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
@@ -71,13 +63,20 @@ exports.handler = async (event) => {
       }
     );
 
-    // --- Parse result
     const data = await resp.json();
+
+    // --- Flexible text extraction ---
     const answer =
       data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
+      data?.candidates?.[0]?.content?.[0]?.parts?.[0]?.text?.trim() ||
+      data?.candidates?.[0]?.output_text?.trim() ||
+      data?.candidates?.[0]?.text?.trim() ||
       "No answer found.";
 
-    // --- Return answer to front-end
+    // Debug log (remove later)
+    console.log("Gemini raw:", JSON.stringify(data, null, 2));
+
+    // === Return to client
     return {
       statusCode: 200,
       headers: CORS,
@@ -85,7 +84,6 @@ exports.handler = async (event) => {
     };
 
   } catch (err) {
-    // --- Handle errors (bad JSON, network fail, etc.)
     return {
       statusCode: 500,
       headers: CORS,
