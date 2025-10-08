@@ -1,6 +1,4 @@
-// functions/just-answer.js
 require("dotenv").config();
-
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 const CORS = {
@@ -13,7 +11,6 @@ exports.handler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers: CORS, body: "" };
   }
-
   try {
     const { q } = JSON.parse(event.body || "{}");
     if (!q?.trim()) {
@@ -24,14 +21,21 @@ exports.handler = async (event) => {
       };
     }
 
-    // === follow SDK JSON shape ===
     const payload = {
-      model: "gemini-2.5-flash",
-      contents: [{ role: "user", parts: [{ text: `Answer clearly in 1–3 sentences:\n${q}` }] }],
-      config: {
-        generationConfig: { temperature: 0.2, maxOutputTokens: 120 },
-        thinkingConfig: { thinkingBudget: 0 },
-      },
+      contents: [
+        {
+          parts: [
+            { text: `Answer clearly in 1–3 sentences:\n${q}` }
+          ]
+        }
+      ],
+      generationConfig: {
+        temperature: 0.2,
+        maxOutputTokens: 120,
+        thinkingConfig: {
+          thinkingBudget: 0
+        }
+      }
     };
 
     const resp = await fetch(
@@ -49,21 +53,20 @@ exports.handler = async (event) => {
     const answer =
       data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
       data?.candidates?.[0]?.content?.[0]?.parts?.[0]?.text?.trim() ||
-      data?.candidates?.[0]?.output_text?.trim() ||
       data?.candidates?.[0]?.text?.trim() ||
-      data?.error?.message ||
       "No answer found.";
 
     return {
       statusCode: 200,
       headers: { ...CORS, "Content-Type": "application/json" },
-      body: JSON.stringify({ success: true, answer }),
+      body: JSON.stringify({ answer }),
     };
+
   } catch (err) {
     return {
       statusCode: 500,
       headers: { ...CORS, "Content-Type": "application/json" },
-      body: JSON.stringify({ success: false, error: err.message }),
+      body: JSON.stringify({ error: err.message }),
     };
   }
 };
