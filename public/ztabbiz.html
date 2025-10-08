@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZTAB — Business</title>
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --panel: #16161a;
+      --accent: #00e0ff;
+      --text: #eaeaea;
+      --muted: #999;
+      --border: #222;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      width: 240px;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: var(--accent);
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-item {
+      padding: 10px 0;
+      font-size: 15px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      color: var(--accent);
+    }
+
+    /* ===== Main Layout ===== */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 60px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      color: var(--accent);
+    }
+
+    header .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header .user img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+    /* ===== Content ===== */
+    .content {
+      flex: 1;
+      display: flex;
+      overflow: auto;
+    }
+
+    .content-main {
+      flex: 1;
+      padding: 40px;
+    }
+
+    .banner {
+      background: linear-gradient(135deg, #111, var(--panel));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .banner h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .banner p {
+      color: var(--muted);
+    }
+
+    .profile-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .card h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .metric {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 6px 0;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      height: 50px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 14px;
+      background: var(--panel);
+    }
+
+    @media (max-width: 800px) {
+      .sidebar {
+        display: none;
+      }
+      .profile-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>ZETSU BIZ</h2>
+    <div class="nav-item active">Dashboard</div>
+    <div class="nav-item">Company Profile</div>
+    <div class="nav-item">Brand Pages</div>
+    <div class="nav-item">Analytics</div>
+    <div class="nav-item">Ad Campaigns</div>
+    <div class="nav-item">Linked Products</div>
+    <div class="nav-item">Billing</div>
+    <div class="nav-item">Logout</div>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1>Business Manager</h1>
+      <div class="user">
+        <span>Zetsumetsu Corp</span>
+        <img src="https://i.imgur.com/AsnZrwr.jpeg" alt="Brand" />
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="content-main">
+        <div class="banner">
+          <h2>Welcome to Zetsumetsu Business.</h2>
+          <p>Manage your brands, analytics, and campaigns all from one place.</p>
+        </div>
+
+        <div class="profile-section">
+          <div class="card">
+            <h3>Company Info</h3>
+            <p class="metric">Name: Zetsumetsu Corporation</p>
+            <p class="metric">Founded: 2023</p>
+            <p class="metric">Location: Detroit, MI</p>
+            <p class="metric">Status: Active</p>
+          </div>
+
+          <div class="card">
+            <h3>Performance Overview</h3>
+            <p class="metric">Active Brands: 6</p>
+            <p class="metric">Monthly Reach: 12.8M</p>
+            <p class="metric">Engagement Rate: 9.2%</p>
+            <p class="metric">Ad Spend (30d): $12,440</p>
+          </div>
+
+          <div class="card">
+            <h3>Linked Products</h3>
+            <p class="metric">SignalZ</p>
+            <p class="metric">Z-Browser</p>
+            <p class="metric">SporeZ</p>
+            <p class="metric">Elo Devices</p>
+          </div>
+
+          <div class="card">
+            <h3>Ad Campaigns</h3>
+            <p class="metric">Active: 4</p>
+            <p class="metric">CTR: 6.1%</p>
+            <p class="metric">Leads Generated: 1,924</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>© 2025 Zetsumetsu Corporation™ | Business Portal</footer>
+  </div>
+</body>
+</html>
