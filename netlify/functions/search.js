@@ -10,12 +10,10 @@ exports.handler = async (event) => {
     "Access-Control-Allow-Headers": "Content-Type",
   };
 
-  // --- Preflight
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers: CORS, body: "" };
   }
 
-  // --- Require query param
   const query = event.queryStringParameters?.q;
   if (!query?.trim()) {
     return {
@@ -117,11 +115,29 @@ exports.handler = async (event) => {
       );
     }
 
-    // --- Run all requests
+    // ===== 6. Google Autocomplete =====
+    const autoCompletePromise = fetch(
+      `https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(query)}`
+    )
+      .then(r => r.json())
+      .then(data => {
+        const suggestions = data?.[1] || [];
+        return suggestions.map(s => ({
+          title: s,
+          link: `https://www.google.com/search?q=${encodeURIComponent(s)}`,
+          snippet: "",
+          source: "autocomplete",
+        }));
+      })
+      .catch(() => []);
+
+    requests.push(autoCompletePromise);
+
+    // --- Combine all requests
     const allResults = await Promise.all(requests);
     let items = allResults.flat();
 
-    // --- Deduplicate
+    // --- Deduplicate by link
     const seen = new Set();
     items = items.filter(i => {
       if (!i.link || seen.has(i.link)) return false;
@@ -129,7 +145,7 @@ exports.handler = async (event) => {
       return true;
     });
 
-    // --- Group and trim
+    // --- Group & trim
     const grouped = {};
     for (const item of items) {
       if (!grouped[item.source]) grouped[item.source] = [];
@@ -145,12 +161,13 @@ exports.handler = async (event) => {
       }
     });
 
-    // --- Return clean JSON
+    // --- Return JSON
     return {
       statusCode: 200,
       headers: { ...CORS, "Content-Type": "application/json" },
       body: JSON.stringify({ highlights, items: reduced }),
     };
+
   } catch (err) {
     console.error("Search Error:", err);
     return {
