@@ -1114,7 +1114,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+const results = document.getElementById("z-search-results");
+const center = document.querySelector(".center-content");
 
+const observer = new MutationObserver(() => {
+  if (results.children.length > 0) {
+    center.style.position = "relative";
+    center.style.top = "auto";
+    center.style.left = "auto";
+    center.style.transform = "none";
+  } else {
+    center.style.position = "absolute";
+    center.style.top = "70%";
+    center.style.left = "50%";
+    center.style.transform = "translate(-50%, -55%)";
+  }
+});
+
+observer.observe(results, { childList: true });
 
   
 </script>
