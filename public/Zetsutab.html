@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Zetsu Start</title>
-  <style>
-  html, body {
+<meta charset="UTF-8" />
+<title>Zetsu Start</title>
+<style>
+/* ===== BASE RESET ===== */
+html {
   margin: 0;
   padding: 0;
   height: 100%;
   background: #121212;
   font-family: Arial, sans-serif;
   color: #eaeaea;
-  overflow-x: hidden;  /* stop sideways scroll */
-  overflow-y: auto;    /* allow vertical scroll */
+  scrollbar-gutter: stable;
+  overflow-y: scroll; /* keeps width constant */
+}
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  background: #121212;
 }
 
+/* ===== TOP NAV (HUD FIXED) ===== */
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #000;
+  border-bottom: 1px solid #222;
+  padding: 22px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+.top-left a {
+  margin-right: 16px;
+  color: #bbb;
+  text-decoration: none;
+}
+.top-left a:hover { color: #fff; }
 
-    /* TOP NAV */
-    .top-nav {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      padding: 22px 20px;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-      background: #000;
-      border-bottom: 1px solid #222;
-    }
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
 
-    .top-left a {
-      margin-right: 16px;
-      color: #bbb;
-      text-decoration: none;
-    }
-
-    .top-left a:hover {
-      color: #fff;
-    }
-
-    .top-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      position: relative;
-    }
-
-    .icon-btn {
+ .icon-btn {
       width: 32px;
       height: 32px;
       background: #1e1e1e;
@@ -268,54 +272,126 @@
 }
 
 
-   /* FOOTER — 3-1-3 ABSOLUTE CENTERING */
-    .z-footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: #000;
-      padding: 14px 32px;
-      font-size: 0.9em;
-      box-sizing: border-box;
-    }
+/* ===== FIXED FOOTER (HUD) ===== */
+.z-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #000;
+  border-top: 1px solid #222;
+  padding: 14px 32px;
+  font-size: 0.9em;
+  box-sizing: border-box;
+}
+.z-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-left,
+.footer-right {
+  display: flex;
+  gap: 24px;
+}
+.footer-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.z-footer a {
+  color: #bbb;
+  text-decoration: none;
+}
+.z-footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
 
+/* ===== CENTER CONTENT ===== */
+.center-content {
+  position: relative;
+  z-index: 0;
+  padding-top: 100px;   /* space for nav */
+  padding-bottom: 80px; /* space for footer */
+  text-align: center;
+}
+.z-logo {
+  font-size: 4em;
+  font-weight: bold;
+  color: #4285f4;
+  margin-bottom: 20px;
+}
+.z-search {
+  width: 95vw;
+  max-width: 720px;
+  display: flex;
+  border: 1px solid #444;
+  border-radius: 24px;
+  padding: 10px 18px;
+  background: #1f1f1f;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  margin: 0 auto;
+}
+.z-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.3em;
+  padding: 10px;
+  background: transparent;
+  color: #fff;
+}
+.z-search button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background: #4285f4;
+  color: white;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+.z-search button:hover { background: #357ae8; }
 
-
-    .z-footer-inner {
-      position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-left,
-    .footer-right {
-      display: flex;
-      gap: 24px;
-      z-index: 1;
-    }
-
-    .footer-center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      z-index: 0;
-    }
-
-    .z-footer a {
-      color: #bbb;
-      text-decoration: none;
-    }
-
-    .z-footer a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    
-    
-  /* ABOUT TOOLTIP */
+/* ===== WIDGET PANEL ===== */
+.widget-panel-1 {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 6px 12px;
+  border: 1px solid #333;
+  border-radius: 12px;
+  background: #1a1a1a;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  text-align: center;
+  height: 45px;
+  line-height: 72px;
+}
+.z-widget-bar {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+.widget-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #555;
+  cursor: pointer;
+  background-color: #eaeaea;
+  color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.widget-btn:hover { border-color: #4285f4; }
+  
+   /* ABOUT TOOLTIP */
 .about-tooltip {
   display: none;
   position: absolute;
@@ -378,7 +454,42 @@
 
 
 
-  /* Results container stays the same */
+/* ===== RESULTS CONTAINER ===== */
+.results-container {
+  margin: 30px auto;
+  width: 100%;
+  max-width: 1950px;
+  padding: 24px;
+  background: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  text-align: left;
+  overflow-y: auto;
+  max-height: 65vh;
+  scrollbar-width: none;
+}
+.results-container::-webkit-scrollbar { display: none; }
+.result-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 14px;
+  margin: 0 0 12px 0;
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#1e1e1e, #1e1e1e) padding-box,
+    linear-gradient(145deg, #d9d9d9, #888, #d9d9d9) border-box;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow:
+    0 0 10px rgba(255,255,255,0.15),
+    0 0 25px rgba(192,192,192,0.2),
+    inset 0 0 12px rgba(255,255,255,0.05);
+  transition: all 0.2s ease-in-out;
+}
+/* Results container stays the same */
 .results-container {
   margin: 30px auto;
   width: 100vw;
@@ -564,83 +675,6 @@
     #222;
 }
 
-
-
-
-
-    
-
-/* Dropdown panel under the icon */
-#search-dropdown {
-  display: flex;
-  flex-direction: column;       /* stack input + button vertically */
-  align-items: center;          /* center children horizontally */
-  justify-content: center;
-  gap: 8px;
-
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #111;
-  padding: 10px;
-  border: 1px solid #444;
-  border-radius: 8px;
-  z-index: 999;
-
-  min-width: 100px;             /* ensure it doesn't collapse too narrow */
-}
-
-/* Input style */
-#z-start-input2 {
-  padding: 6px 10px;
-  border: 1px solid #555;
-  border-radius: 6px;
-  background: #1e1e1e;
-  color: #fff;
-  width: 220px;
-  /* center the input inside the block */
-  display: block;
-  margin: 0 auto;
-}
-
-/* Button like keyboard key */
-#z-search-btn2 {
-  padding: 8px 16px;
-  border: 2px solid #888;
-  border-radius: 6px;
-  background: linear-gradient(#2c2c2c, #1a1a1a);
-  color: #f1f1f1;
-  font-family: monospace;
-  font-size: 14px;
-  letter-spacing: 1px;
-  box-shadow:
-    inset 0 2px 3px rgba(0,0,0,0.6),
-    0 2px 0 #000,
-    0 4px 6px rgba(0,0,0,0.4);
-  cursor: pointer;
-  transition: all 0.15s ease-in-out;
-  /* center the button inside the dropdown */
-  display: block;
-  margin: 0 auto;
-}
-
-#z-search-btn2:hover {
-  background: linear-gradient(#3a3a3a, #222);
-  border-color: #aaa;
-}
-
-#z-search-btn2:active {
-  transform: translateY(2px);
-  box-shadow:
-    inset 0 1px 2px rgba(0,0,0,0.8),
-    0 1px 0 #000;
-}
-
-
-
-
-
     .profile-container {
   position: relative;
 }
@@ -734,13 +768,12 @@
 
 
 
- </style>
-
+</style>
 </head>
 <body>
 
-  <!-- TOP NAV -->
-  <div class="top-nav">
+<!-- HUD TOP NAV -->
+<div class="top-nav">
 
     <!-- Top left ---------------------------------------------->
     <div class="top-left">
@@ -794,13 +827,7 @@
   </div>
 </div>
 
-
-    
-
-
-    
-<!-- tools---------------------------------------------->
-<div class="top-right">
+  <div class="top-right">
   <div class="icon-btn" title="Widgets">☰</div>
   <div class="icon-btn" id="apps-icon" title="Apps">⬛</div>
 
@@ -926,33 +953,15 @@
 </div>
 
 
-<!-- CENTER ----------------------------------------------->
+<!-- MAIN CONTENT -->
 <div class="center-content">
-  
-  <!-- Image Logo -->
-  <div class="z-logo">
-    <img src="zetsu_cover-r22.png" 
-                  style="
-           width: 320px;
-           max-width: 90vw;
-           height: auto;
-           display: block;
-           margin: 0 auto 20px auto;
-           filter: drop-shadow(0 0 12px rgba(66,133,244,0.6));
-         ">
-  </div>
-
-  <!-- SEARCH BAR -->
+  <div class="z-logo">Zetsu Start</div>
   <div class="z-search">
-    <input type="text" placeholder="Information Search Engine" id="z-start-input"> 
-    <button id="z-search-btn">Search</button> 
+    <input type="text" placeholder="Information Search Engine" />
+    <button>Search</button>
   </div>
-
-
-  
-<!-- Widget Panel 1 ----------------------------------------->
-<div class="widget-panel-1">
-  <div class="z-widget-bar">
+  <div class="widget-panel-1">
+    <div class="z-widget-bar">
 
     <!-- Google -->
     <a href="https://www.google.com" target="_blank" class="widget-btn"
@@ -986,27 +995,13 @@
 
   </div>
 </div>
-
-
-
-
-
-
-    <!-- Add this container where you want results to display -->
-<div id="z-search-results" class="results-container"></div>
-</div>
-</div>
-</div>
+  <div id="z-search-results" class="results-container"></div>
 </div>
 
-
-
-  
-
-  <!-- FOOTER -------------------------------------------------------->
-  <div class="z-footer">
-    <div class="z-footer-inner">
-      <div class="footer-left">
+<!-- HUD FOOTER -->
+<div class="z-footer">
+  <div class="z-footer-inner">
+     <div class="footer-left">
         <a href="https://jessicaspz.netlify.app/ads">Advertising</a>
         <a href="https://jessicaspz.netlify.app/biz">Business</a>
         <a href="https://jessicaspz.netlify.app/how2">How Search works</a>
