@@ -1006,9 +1006,10 @@
 
 
 
-    <!-- Add this container where you want results to display -->
-<div id="z-search-results" class="results-container"></div>
-
+  <div class="autocomplete-box">
+  <input id="ztabSearch" type="text" placeholder="Search…" autocomplete="off" />
+  <div id="autocompleteResults" class="autocomplete-results"></div>
+</div>
 </div>
 </div>
 
@@ -1042,10 +1043,22 @@
 
 
 <script>
-  <div class="autocomplete-box">
-  <input id="ztabSearch" type="text" placeholder="Search…" autocomplete="off" />
-  <div id="autocompleteResults" class="autocomplete-results"></div>
-</div>
+
+const input = document.getElementById('ztabSearch');
+const resultsBox = document.getElementById('autocompleteResults');
+
+input.addEventListener('input', async (e) => {
+  const q = e.target.value.trim();
+  if (!q) return (resultsBox.innerHTML = '');
+
+  const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+  const data = await res.json();
+
+  const autos = data.items.filter(i => i.source === 'autocomplete');
+  resultsBox.innerHTML = autos
+    .map(a => `<div class="autocomplete-item">${a.title}</div>`)
+    .join('');
+});
 
 
   
