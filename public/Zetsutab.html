@@ -694,6 +694,56 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ========= AUTOCOMPLETE ========== */
+.autocomplete-box {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.autocomplete-results {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  background: rgba(20, 20, 20, 0.95);
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid #222;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
+  z-index: 999;
+}
+
+.autocomplete-results::-webkit-scrollbar {
+  display: none;
+}
+
+.autocomplete-item {
+  flex: 0 0 auto;
+  background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+  color: #00ffe1;
+  border: 1px solid #0ff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-family: "Orbitron", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.autocomplete-item:hover {
+  background: #00ffe1;
+  color: #000;
+  transform: scale(1.05);
+}
 
     
  </style>
