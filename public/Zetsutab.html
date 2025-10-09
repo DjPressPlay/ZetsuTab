@@ -648,91 +648,53 @@
   color: #fff;
 }
 
-/* === JUST ANSWER CAPSULE — CENTERED + FLASH STYLE === */
+/* Keep Gemini capsule visible and independent of search results */
 #just-answer-capsule {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: sticky;
+  top: 10px;
+  z-index: 9998;
   display: none;
-  z-index: 99999;
-
-  width: 90%;
+  width: 95%;
   max-width: 720px;
-  padding: 22px 28px;
-  text-align: center;
-
-  background: radial-gradient(circle at top left, #0f0f0f 0%, #000 100%);
-  border-radius: 16px;
-  border: 2px solid rgba(0, 255, 230, 0.4);
-  box-shadow:
-    0 0 25px rgba(0, 255, 230, 0.25),
-    inset 0 0 20px rgba(0, 100, 255, 0.2),
-    0 0 80px rgba(0, 150, 255, 0.15);
-  backdrop-filter: blur(12px) saturate(180%);
+  margin: 20px auto;
+  background: linear-gradient(145deg, #1b1b1b, #101010);
+  border: 1px solid #3c4043;
+  border-radius: 14px;
+  padding: 20px 28px;
+  box-shadow: 0 0 25px rgba(0, 255, 230, 0.15);
   color: #eaeaea;
   font-family: "Orbitron", "Segoe UI", sans-serif;
-
-  animation: flashIn 0.7s ease-out forwards;
+  text-align: center;                /* ✅ center text */
+  animation: fadeIn 0.3s ease-out;
+  backdrop-filter: blur(6px);
+  background: rgba(16,16,16,0.85);
 }
 
-/* subtle pulsing border */
-#just-answer-capsule::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 2px;
-  background: linear-gradient(90deg, #00ffe1, #006aff, #00ffe1);
-  background-size: 200% 100%;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  animation: borderShift 3s linear infinite;
-}
-
-/* HEADER */
+/* Title */
 .ai-header {
   font-weight: bold;
-  font-size: 1.2em;
-  letter-spacing: 1px;
   color: #00e0ff;
-  text-shadow: 0 0 8px rgba(0, 224, 255, 0.8);
   margin-bottom: 10px;
+  font-size: 1.2em;
+  text-shadow: 0 0 10px rgba(0, 224, 255, 0.8);
 }
 
-/* TEXT */
+/* Answer text */
 .ai-text {
   font-size: 1.05em;
   line-height: 1.6;
-  color: #e0faff;
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.25);
-  animation: textGlow 3s ease-in-out infinite alternate;
+  color: #ddd;
+  text-align: center;                /* ✅ center inner text too */
+  letter-spacing: 0.3px;
+  text-shadow: 0 0 6px rgba(0,255,255,0.25);
 }
 
-/* === ANIMATIONS === */
-@keyframes flashIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -60%) scale(0.9);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    filter: blur(0);
-  }
+/* subtle entrance glow */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes borderShift {
-  0% { background-position: 0 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes textGlow {
-  0% { text-shadow: 0 0 4px #00ffe1, 0 0 10px rgba(0, 255, 255, 0.4); }
-  100% { text-shadow: 0 0 8px #00ffe1, 0 0 18px rgba(0, 255, 255, 0.7); }
-}
 
 
  </style>
