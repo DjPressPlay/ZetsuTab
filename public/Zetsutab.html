@@ -118,22 +118,26 @@
     }
 
    /* CENTER AREA */
+/* center-content tweak */
 .center-content {
   position: absolute;
-  top: calc(60% + 40px);  /* push it down slightly */
+  top: 65%;                     /* was 60% — moves logo down */
   left: 50%;
   transform: translate(-50%, -55%);
   text-align: center;
+  padding: 15px 18px;
 }
 
+/* logo tweak */
+.z-logo img {
+  width: 260px;                 /* was 320px — shrinks a bit */
+  max-width: 80vw;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+  filter: drop-shadow(0 0 12px rgba(66,133,244,0.6));
+}
 
-
-    .z-logo {
-      font-size: 4em;
-      font-weight: bold;
-      color: #4285f4;
-      margin-bottom: 20px;
-    }
 
     .z-search {
       width: 95vw;
