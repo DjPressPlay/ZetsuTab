@@ -497,41 +497,72 @@
   padding: 10px;
 }
 
+
+
+    
 /* ✅ results become full-width horizontal rows */
 .result-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .result-item {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 12px;
+  gap: 14px;
 
-  /* keep your original card styling */
   margin: 0 0 12px 0;
-  padding: 16px;
-  border: 1px solid #333;
-  border-radius: 8px;
-  background: #1e1e1e;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  padding: 16px 20px;
+  border-radius: 10px;
 
-  /* undo the 220px clamp */
+  /* 🔹 Strong silver border + reflective gradient */
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#1e1e1e, #1e1e1e) padding-box,
+    linear-gradient(145deg, #d9d9d9, #888, #d9d9d9) border-box;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
+  /* 🔹 Inner shine + outer glow */
+  box-shadow:
+    0 0 10px rgba(255,255,255,0.15),
+    0 0 25px rgba(192,192,192,0.2),
+    inset 0 0 12px rgba(255,255,255,0.05);
+
+  background-color: #1e1e1e;
+  transition: all 0.2s ease-in-out;
+
   max-width: none;
   width: 100%;
 }
 
+/* 🔹 hover effect for sleek flash */
+.result-item:hover {
+  border-color: #ccc;
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.25),
+    0 0 35px rgba(192,192,192,0.3),
+    inset 0 0 18px rgba(255,255,255,0.1);
+  transform: scale(1.01);
+}
+
+/* thumbnail */
 .result-item img {
   width: 160px;
   height: 90px;
   object-fit: cover;
   border-radius: 6px;
   flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 8px rgba(255,255,255,0.1);
 }
 
 
+
+
+    
 
 /* Dropdown panel under the icon */
 #search-dropdown {
@@ -665,7 +696,7 @@
   color: #eaeaea;
   font-family: "Orbitron", "Segoe UI", sans-serif;
   text-align: center;                /* ✅ center text */
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.9s ease-out;
   backdrop-filter: blur(6px);
   background: rgba(16,16,16,0.85);
 }
