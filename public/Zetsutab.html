@@ -693,6 +693,156 @@
 
 
 
+
+    /* ======== MOBILE RESPONSIVE STYLING ======== */
+@media (max-width: 768px) {
+
+  /* TOP NAV */
+  .top-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .top-left,
+  .top-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .icon-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .profile-pic {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* SEARCH */
+  .z-search {
+    width: 94vw;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .z-search input {
+    width: 100%;
+    font-size: 0.95em;
+    padding: 6px 8px;
+  }
+
+  .z-search button {
+    width: 100%;
+    font-size: 0.9em;
+    padding: 10px 0;
+  }
+
+  /* LOGO + CENTER */
+  .center-content {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+  }
+
+  .z-logo img {
+    width: 70%;
+    max-width: 220px;
+  }
+
+  /* WIDGETS */
+  .z-widget-bar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .widget-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  /* FOOTER */
+  .z-footer {
+    padding: 10px 16px;
+    font-size: 0.8em;
+  }
+
+  .z-footer-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .footer-center {
+    position: static;
+    transform: none;
+    margin-bottom: 6px;
+    white-space: normal;
+  }
+
+  /* APP GRID */
+  .apps-dropdown {
+    width: 90vw;
+    right: 5vw;
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  .app-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .app-cell {
+    font-size: 11px;
+  }
+
+  /* RESULTS */
+  .results-container {
+    width: 95vw;
+    padding: 12px;
+    margin: 16px auto;
+    max-height: 60vh;
+  }
+
+  .result-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .result-item img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+}
+
+/* ======== EXTRA SMALL SCREENS ======== */
+@media (max-width: 480px) {
+  .top-nav {
+    font-size: 0.8em;
+  }
+
+  .z-logo img {
+    width: 60%;
+    max-width: 180px;
+  }
+
+  .widget-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .z-search {
+    padding: 6px;
+  }
+}
+
  </style>
 
 </head>
