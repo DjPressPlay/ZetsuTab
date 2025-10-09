@@ -131,7 +131,7 @@
 /* logo tweak */
 .z-logo img {
   width: 260px;                 /* was 320px — shrinks a bit */
-  max-width: 80vw;
+  max-width: 70vw;
   height: auto;
   display: block;
   margin: 0 auto 20px auto;
@@ -140,41 +140,51 @@
 
 
     .z-search {
-      width: 95vw;
-      max-width: 720px;
-      display: flex;
-      border: 1px solid #444;
-      border-radius: 24px;
-      padding: 10px 18px;
-      background: #1f1f1f;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-      margin: 0 auto;
-    }
+  width: 90vw;
+  max-width: 640px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #2c2c2c;
+  border-radius: 12px;
+  padding: 6px 12px;
+  background: #161616;
+  margin: 0 auto;
+  transition: border 0.2s ease, background 0.2s ease;
+}
 
-    .z-search input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 1.3em;
-      padding: 10px;
-      background: transparent;
-      color: #fff;
-    }
+.z-search:focus-within {
+  border-color: #4285f4;
+  background: #1c1c1c;
+}
 
-    .z-search button {
-      margin-left: 10px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      background: #4285f4;
-      color: white;
-      font-size: 1.1em;
-      cursor: pointer;
-    }
+.z-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.05em;
+  padding: 8px 10px;
+  background: transparent;
+  color: #eaeaea;
+  letter-spacing: 0.3px;
+}
 
-    .z-search button:hover {
-      background: #357ae8;
-    }
+.z-search button {
+  margin-left: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2f7bf5;
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.z-search button:hover {
+  background: #3e8cff;
+  transform: translateY(-1px);
+}
 
 
 /* WIDGET PANEL CONTAINER */
