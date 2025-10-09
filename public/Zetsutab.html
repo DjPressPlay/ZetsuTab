@@ -1115,15 +1115,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-document.addEventListener("error", (e) => {
-  const el = e.target;
-  if (el.tagName === "IMG" && el.closest(".result-item")) {
-    el.src = "/images/fallback-thumb.png";     // your fallback file
-    el.alt = "Image unavailable";
-    el.style.objectFit = "contain";
-    el.style.background = "#111";
-  }
-}, true);
 
   
 </script>
