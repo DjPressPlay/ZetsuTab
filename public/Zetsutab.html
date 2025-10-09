@@ -648,50 +648,90 @@
   color: #fff;
 }
 
-/* Keep Gemini capsule visible and independent of search results */
+/* === JUST ANSWER CAPSULE — CENTERED + FLASH STYLE === */
 #just-answer-capsule {
-  position: sticky;
-  top: 10px;
-  z-index: 9998;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: none;
-  width: 95%;
+  z-index: 99999;
+
+  width: 90%;
   max-width: 720px;
-  margin: 20px auto;
-  background: linear-gradient(145deg, #1b1b1b, #101010);
-  border: 1px solid #3c4043;
-  border-radius: 14px;
-  padding: 18px 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  padding: 22px 28px;
+  text-align: center;
+
+  background: radial-gradient(circle at top left, #0f0f0f 0%, #000 100%);
+  border-radius: 16px;
+  border: 2px solid rgba(0, 255, 230, 0.4);
+  box-shadow:
+    0 0 25px rgba(0, 255, 230, 0.25),
+    inset 0 0 20px rgba(0, 100, 255, 0.2),
+    0 0 80px rgba(0, 150, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(180%);
   color: #eaeaea;
-  font-family: "Segoe UI", sans-serif;
-  text-align: left;
-  animation: fadeIn 0.3s ease-out;
+  font-family: "Orbitron", "Segoe UI", sans-serif;
+
+  animation: flashIn 0.7s ease-out forwards;
 }
 
-    #just-answer-capsule {
-  position: sticky;
-  top: 0;
-  backdrop-filter: blur(6px);
-  background: rgba(16,16,16,0.85);
+/* subtle pulsing border */
+#just-answer-capsule::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #00ffe1, #006aff, #00ffe1);
+  background-size: 200% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: borderShift 3s linear infinite;
 }
 
-
+/* HEADER */
 .ai-header {
   font-weight: bold;
-  color: #4285f4;
-  margin-bottom: 8px;
-  font-size: 1.1em;
+  font-size: 1.2em;
+  letter-spacing: 1px;
+  color: #00e0ff;
+  text-shadow: 0 0 8px rgba(0, 224, 255, 0.8);
+  margin-bottom: 10px;
 }
 
+/* TEXT */
 .ai-text {
   font-size: 1.05em;
-  line-height: 1.5;
-  color: #ddd;
+  line-height: 1.6;
+  color: #e0faff;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.25);
+  animation: textGlow 3s ease-in-out infinite alternate;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* === ANIMATIONS === */
+@keyframes flashIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.9);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes borderShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 0 0 4px #00ffe1, 0 0 10px rgba(0, 255, 255, 0.4); }
+  100% { text-shadow: 0 0 8px #00ffe1, 0 0 18px rgba(0, 255, 255, 0.7); }
 }
 
 
@@ -709,7 +749,7 @@
       <a href="#" class="about-link">About
         <span class="about-tooltip">
           <b>Zetsu Start</b><br>
-          Version: 2.5.5<br>
+          Version: 3.0.5<br>
           Last Update: Oct 7, 2025<br>
           Creator: Zetsumetsu Eoe™ | ZETSUMETSU CORPORATION | Artworqq Kevin Suber
         </span>
@@ -882,7 +922,7 @@
   
   <!-- AI DIRECT ANSWER CAPSULE -->
 <div id="just-answer-capsule" class="just-answer-capsule" >
-  <div class="ai-header">🤖 Just Answer</div>
+  <div class="ai-header">🤖 Checking Internet Wall</div>
   <div class="ai-text" id="just-answer-result">...</div>
 </div>
 
