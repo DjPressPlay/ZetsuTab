@@ -799,6 +799,78 @@ document.addEventListener("DOMContentLoaded", () => {
     profileDropdown.style.display = "none";
   });
 });
+                                          
+                                          
+//--------------------------------------------------------------
+// SIDEBAR TAB CONTROLS
+//--------------------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const navItems = document.querySelectorAll(".nav-item");
+  const contentMain = document.querySelector(".content-main");
+
+  // Define what content each button should show
+  const contentMap = {
+    "Profile": `
+      <div class="banner">
+        <h2>Welcome Back, Kevin.</h2>
+        <p>Your Zetsu profile is active and synced with all core systems.</p>
+      </div>
+      <div class="profile-section">
+        <div class="card">
+          <h3>Account Info</h3>
+          <p>Email: kevin@zetsu.io</p>
+          <p>Member Since: 2023</p>
+          <p>Status: Verified</p>
+        </div>
+        <div class="card">
+          <h3>ZTAB Access</h3>
+          <p>Current Tier: Developer</p>
+          <p>Connected Devices: 3</p>
+          <p>Session ID: active</p>
+        </div>
+      </div>
+    `,
+    "Settings": `
+      <div class="banner"><h2>Settings</h2><p>Manage your preferences and account configuration.</p></div>
+      <div class="card"><h3>Display</h3><p>Theme: Dark Mode</p></div>
+      <div class="card"><h3>Notifications</h3><p>Email alerts: Enabled</p></div>
+    `,
+    "Security": `
+      <div class="banner"><h2>Security</h2><p>Protect your account and data integrity.</p></div>
+      <div class="card"><h3>Password</h3><p>Last changed: Sept 2025</p></div>
+      <div class="card"><h3>2FA</h3><p>Status: Enabled</p></div>
+    `,
+    "Connected Apps": `
+      <div class="banner"><h2>Connected Apps</h2><p>Apps currently linked to your account.</p></div>
+      <div class="card"><h3>SignalZ</h3><p>Connected</p></div>
+      <div class="card"><h3>ZTAB Music</h3><p>Connected</p></div>
+    `,
+    "Billing": `
+      <div class="banner"><h2>Billing</h2><p>View your subscription and payment history.</p></div>
+      <div class="card"><h3>Current Plan</h3><p>Developer Tier — $0/mo</p></div>
+      <div class="card"><h3>Payment Method</h3><p>•••• •••• •••• 4242</p></div>
+    `,
+    "Logout": `
+      <div class="banner"><h2>Logout</h2><p>You have been safely logged out.</p></div>
+    `
+  };
+
+  // Set up click behavior for each sidebar button
+  navItems.forEach(item => {
+    item.addEventListener("click", () => {
+      // Reset active state
+      navItems.forEach(i => i.classList.remove("active"));
+      item.classList.add("active");
+
+      // Get section name
+      const section = item.textContent.trim();
+      // Replace content
+      contentMain.innerHTML = contentMap[section] || `<div class="banner"><h2>${section}</h2><p>Section under construction.</p></div>`;
+    });
+  });
+});
+
+                                          
   
 </script>
 <!-- Optional external script -->
