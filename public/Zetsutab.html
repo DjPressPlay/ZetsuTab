@@ -1132,135 +1132,142 @@
   </div>
 
 
+<!-- ========== MAIN SCRIPT ========== -->
 <script>
-
-
-  
-  // 🔄 Dropdown Toggles
-  const appsIcon = document.getElementById('apps-icon');
-  const appsDropdown = document.getElementById('apps-dropdown');
-  const storeLink = document.getElementById('store-link');
-  const storeDropdown = document.getElementById('store-dropdown');
-
-  appsIcon.addEventListener("click", () => {
-    appsDropdown.style.display = (appsDropdown.style.display === 'block') ? 'none' : 'block';
-  });
-
-  storeLink.addEventListener("click", () => {
-    storeDropdown.style.display = (storeDropdown.style.display === 'block') ? 'none' : 'block';
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!appsIcon.contains(e.target) && !appsDropdown.contains(e.target)) {
-      appsDropdown.style.display = 'none';
-    }
-    if (!storeLink.contains(e.target) && !storeDropdown.contains(e.target)) {
-      storeDropdown.style.display = 'none';
-    }
-  });
-
-  
-  document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("z-icon").addEventListener("click", () => {
-    const dropdown = document.getElementById("search-dropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-  });
-});
-
-
-
-
-  // PROFILE DROPDOWN — FIXED VERSION
 document.addEventListener("DOMContentLoaded", () => {
+  /* ==========================
+      🔄 DROPDOWN TOGGLES
+  =========================== */
+  const appsIcon = document.getElementById("apps-icon");
+  const appsDropdown = document.getElementById("apps-dropdown");
+  const storeLink = document.getElementById("store-link");
+  const storeDropdown = document.getElementById("store-dropdown");
+
+  if (appsIcon && appsDropdown && storeLink && storeDropdown) {
+    appsIcon.addEventListener("click", () => {
+      appsDropdown.style.display =
+        appsDropdown.style.display === "block" ? "none" : "block";
+    });
+
+    storeLink.addEventListener("click", () => {
+      storeDropdown.style.display =
+        storeDropdown.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!appsIcon.contains(e.target) && !appsDropdown.contains(e.target)) {
+        appsDropdown.style.display = "none";
+      }
+      if (!storeLink.contains(e.target) && !storeDropdown.contains(e.target)) {
+        storeDropdown.style.display = "none";
+      }
+    });
+  }
+
+  /* ==========================
+      🔽 SEARCH ICON DROPDOWN
+  =========================== */
+  const zIcon = document.getElementById("z-icon");
+  const searchDropdown = document.getElementById("search-dropdown");
+  if (zIcon && searchDropdown) {
+    zIcon.addEventListener("click", () => {
+      searchDropdown.style.display =
+        searchDropdown.style.display === "block" ? "none" : "block";
+    });
+  }
+
+  /* ==========================
+      👤 PROFILE DROPDOWN
+  =========================== */
   const profilePic = document.getElementById("profile-pic");
   const profileDropdown = document.getElementById("profile-menu");
   const fileInput = document.getElementById("profile-upload");
   const resetBtn = document.getElementById("reset-image");
 
-  // Load saved image from localStorage
-  const savedImage = localStorage.getItem("profileImage");
-  if (savedImage) profilePic.style.backgroundImage = `url(${savedImage})`;
+  if (profilePic && profileDropdown && fileInput && resetBtn) {
+    const savedImage = localStorage.getItem("profileImage");
+    if (savedImage) profilePic.style.backgroundImage = `url(${savedImage})`;
 
-  // Toggle dropdown
-  profilePic.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isVisible = profileDropdown.style.display === "block";
-    profileDropdown.style.display = isVisible ? "none" : "block";
-  });
+    profilePic.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isVisible = profileDropdown.style.display === "block";
+      profileDropdown.style.display = isVisible ? "none" : "block";
+    });
 
-  // Outside click closes
-  document.addEventListener("click", (e) => {
-    if (!profilePic.contains(e.target) && !profileDropdown.contains(e.target)) {
+    document.addEventListener("click", (e) => {
+      if (
+        !profilePic.contains(e.target) &&
+        !profileDropdown.contains(e.target)
+      ) {
+        profileDropdown.style.display = "none";
+      }
+    });
+
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataURL = event.target.result;
+        profilePic.style.backgroundImage = `url(${dataURL})`;
+        localStorage.setItem("profileImage", dataURL);
+        profileDropdown.style.display = "none";
+      };
+      reader.readAsDataURL(file);
+    });
+
+    resetBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("profileImage");
+      profilePic.style.backgroundImage = 'url("https://placehold.co/64x64")';
       profileDropdown.style.display = "none";
-    }
-  });
+    });
+  }
 
-  // When file chosen → show + save locally
-  fileInput.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const dataURL = event.target.result;
-      profilePic.style.backgroundImage = `url(${dataURL})`;
-      localStorage.setItem("profileImage", dataURL);
-      profileDropdown.style.display = "none";
-    };
-    reader.readAsDataURL(file);
-  });
+  /* ==========================
+      🔍 SEARCH CENTERING
+  =========================== */
+  const results = document.getElementById("z-search-results");
+  const center = document.querySelector(".center-content");
 
-  // Reset to default placeholder
-  resetBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    localStorage.removeItem("profileImage");
-    profilePic.style.backgroundImage = 'url("https://placehold.co/64x64")';
-    profileDropdown.style.display = "none";
-  });
-});
+  if (results && center) {
+    const observer = new MutationObserver(() => {
+      if (results.children.length > 0) {
+        center.style.position = "relative";
+        center.style.top = "auto";
+        center.style.left = "auto";
+        center.style.transform = "none";
+      } else {
+        center.style.position = "absolute";
+        center.style.top = "70%";
+        center.style.left = "50%";
+        center.style.transform = "translate(-50%, -55%)";
+      }
+    });
+    observer.observe(results, { childList: true });
+  }
 
-
-const results = document.getElementById("z-search-results");
-const center = document.querySelector(".center-content");
-
-const observer = new MutationObserver(() => {
-  if (results.children.length > 0) {
-    center.style.position = "relative";
-    center.style.top = "auto";
-    center.style.left = "auto";
-    center.style.transform = "none";
+  /* ==========================
+      🔐 Z-INFINITY AUTH LINK
+  =========================== */
+  if (window.ZInfinityAuth) {
+    ZInfinityAuth.init({
+      client_id: "ztab",
+      callback: (session) => {
+        console.log("Z-Auth linked:", session);
+        // You can also show a "Connected" badge here
+      },
+    });
   } else {
-    center.style.position = "absolute";
-    center.style.top = "70%";
-    center.style.left = "50%";
-    center.style.transform = "translate(-50%, -55%)";
+    console.warn("ZInfinityAuth not loaded yet.");
   }
+
+  // Make these available globally
+  window.connectZTAB = () => ZInfinityAuth?.open();
+  window.sendAction = () => ZInfinityAuth?.log("search", { term: "zetsu" });
 });
-
-observer.observe(results, { childList: true });
-
-
-  
-
 </script>
 
-<!-- Add your ZInfinityAuth integration here -->
-<script src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"></script>
-<script>
-ZInfinityAuth.init({
-  client_id: "ztab",
-  callback: (session) => {
-    console.log("Z-Auth linked:", session);
-    // optional: visually update UI (show connected badge, avatar glow, etc.)
-  }
-});
-
-// Example buttons
-function connectZTAB() { ZInfinityAuth.open(); }
-function sendAction() { ZInfinityAuth.log("search", { term: "zetsu" }); }
-</script>
-
-
-  
-</script>
-<!-- Optional external script -->
+<!-- External scripts -->
 <script src="ztab-search.js" defer></script>
+<script src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js" defer></script>
