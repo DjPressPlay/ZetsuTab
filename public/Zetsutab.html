@@ -1238,6 +1238,28 @@ const observer = new MutationObserver(() => {
 
 observer.observe(results, { childList: true });
 
+
+  
+
+</script>
+
+<!-- Add your ZInfinityAuth integration here -->
+<script src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"></script>
+<script>
+ZInfinityAuth.init({
+  client_id: "ztab",
+  callback: (session) => {
+    console.log("Z-Auth linked:", session);
+    // optional: visually update UI (show connected badge, avatar glow, etc.)
+  }
+});
+
+// Example buttons
+function connectZTAB() { ZInfinityAuth.open(); }
+function sendAction() { ZInfinityAuth.log("search", { term: "zetsu" }); }
+</script>
+
+
   
 </script>
 <!-- Optional external script -->
