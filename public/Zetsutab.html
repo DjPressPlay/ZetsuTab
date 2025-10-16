@@ -1254,7 +1254,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <!-- ✅ Z-Infinity Auth — load and init only when ready -->
 <script
-  src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
+ src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
   defer
   onload="
     if (window.ZInfinityAuth) {
@@ -1264,6 +1264,19 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log('✅ Z-Auth linked:', session);
         }
       });
+
+      // 🔹 Auto-prompt when page loads
+      window.addEventListener('load', () => {
+        // wait a moment to ensure UI is ready
+        setTimeout(() => {
+          try {
+            ZInfinityAuth.open(); // directly opens your auth popup
+          } catch (err) {
+            console.error('Auth popup blocked or failed:', err);
+          }
+        }, 800); // delay ~0.8s for smooth load
+      });
+
       window.connectZTAB = () => ZInfinityAuth.open();
       window.sendAction = () => ZInfinityAuth.log('search', { term: 'zetsu' });
     } else {
