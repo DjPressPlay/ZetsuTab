@@ -1246,30 +1246,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     observer.observe(results, { childList: true });
   }
-
-  /* ==========================
-      🔐 Z-INFINITY AUTH LINK
-  =========================== */
-  if (window.ZInfinityAuth) {
-    ZInfinityAuth.init({
-      client_id: "ztab",
-      callback: (session) => {
-        console.log("Z-Auth linked:", session);
-        // You can also show a "Connected" badge here
-      },
-    });
-  } else {
-    console.warn("ZInfinityAuth not loaded yet.");
-  }
-
-  // Make these available globally
-  window.connectZTAB = () => ZInfinityAuth?.open();
-  window.sendAction = () => ZInfinityAuth?.log("search", { term: "zetsu" });
 });
 </script>
 
-<!-- External scripts -->
+<!-- ✅ External Scripts (placed after main script) -->
+<script src="ztab-search.js" defer></script>
+
+<!-- ✅ Z-Infinity Auth — load and init only when ready -->
 <script
   src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
-  onload="ZInfinityAuth.init({client_id:'ztab',callback:(s)=>console.log('Z-Auth linked:',s)});"
+  defer
+  onload="
+    if (window.ZInfinityAuth) {
+      ZInfinityAuth.init({
+        client_id: 'ztab',
+        callback: (session) => {
+          console.log('✅ Z-Auth linked:', session);
+        }
+      });
+      window.connectZTAB = () => ZInfinityAuth.open();
+      window.sendAction = () => ZInfinityAuth.log('search', { term: 'zetsu' });
+    } else {
+      console.error('❌ ZInfinityAuth failed to load.');
+    }
+  "
 ></script>
