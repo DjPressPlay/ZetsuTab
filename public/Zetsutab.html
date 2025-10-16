@@ -1269,5 +1269,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <!-- External scripts -->
-<script src="ztab-search.js" defer></script>
-<script src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js" defer></script>
+<script
+  src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
+  onload="ZInfinityAuth.init({client_id:'ztab',callback:(s)=>console.log('Z-Auth linked:',s)});"
+></script>
