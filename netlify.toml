@@ -1,38 +1,19 @@
 [build]
+  # No build step. We serve static files from /public.
   publish = "public"
 
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# ✅ Always serve JS with correct MIME
-[[headers]]
-  for = "/ZInfinityAuth.js"
-  [headers.values]
-  Content-Type = "application/javascript; charset=utf-8"
-  Access-Control-Allow-Origin = "*"
-  Cross-Origin-Resource-Policy = "cross-origin"
-
-# ✅ Also allow popup cross-origin
-[[headers]]
-  for = "/ZIAuth.html"
-  [headers.values]
-  Access-Control-Allow-Origin = "*"
-  Cross-Origin-Resource-Policy = "cross-origin"
-
-# ✅ Let these two files serve normally (no redirect trap)
+# API routes → Netlify Functions
 [[redirects]]
-  from = "/ZInfinityAuth.js"
-  to = "/ZInfinityAuth.js"
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
 
-[[redirects]]
-  from = "/ZIAuth.html"
-  to = "/ZIAuth.html"
-  status = 200
-
-# ✅ Fallback for everything else → your popup SPA
+# SPA fallback (Zetsu Start)
 [[redirects]]
   from = "/*"
-  to = "/ZIAuth.html"
+  to = "/Zetsutab.html"
   status = 200
