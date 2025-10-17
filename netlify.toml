@@ -1,40 +1,20 @@
+
 [build]
+  # No build step. We serve static files from /public.
   publish = "public"
-  command = ""
 
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# ✅ Global security & CORS headers for Auth files
-[[headers]]
-  for = "/*"
-  [headers.values]
-  Access-Control-Allow-Origin = "*"
-  Access-Control-Allow-Methods = "GET, OPTIONS"
-  Access-Control-Allow-Headers = "Content-Type"
-  Cross-Origin-Resource-Policy = "cross-origin"
-  Cross-Origin-Embedder-Policy = "unsafe-none"
-  Cross-Origin-Opener-Policy = "unsafe-none"
-  Cache-Control = "public, max-age=3600"
+# API routes → Netlify Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
 
-# ✅ Allow ZInfinityAuth.js to be fetched from other sites
-[[headers]]
-  for = "/ZInfinityAuth.js"
-  [headers.values]
-  Content-Type = "application/javascript; charset=utf-8"
-  Access-Control-Allow-Origin = "*"
-  Cross-Origin-Resource-Policy = "cross-origin"
-
-# ✅ Let popup page embed cross-origin (used by ZTAB)
-[[headers]]
-  for = "/ZIAuth.html"
-  [headers.values]
-  Access-Control-Allow-Origin = "*"
-  Cross-Origin-Resource-Policy = "cross-origin"
-
-# ✅ Fallback to popup
+# SPA fallback (Zetsu Start)
 [[redirects]]
   from = "/*"
-  to = "/ZIAuth.html"
+  to = "/Zetsutab.html"
   status = 200
