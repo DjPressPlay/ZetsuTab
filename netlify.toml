@@ -5,20 +5,33 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# ✅ allow JS and popup HTML to pass through normally
+# ✅ Always serve JS with correct MIME
+[[headers]]
+  for = "/ZInfinityAuth.js"
+  [headers.values]
+  Content-Type = "application/javascript; charset=utf-8"
+  Access-Control-Allow-Origin = "*"
+  Cross-Origin-Resource-Policy = "cross-origin"
+
+# ✅ Also allow popup cross-origin
+[[headers]]
+  for = "/ZIAuth.html"
+  [headers.values]
+  Access-Control-Allow-Origin = "*"
+  Cross-Origin-Resource-Policy = "cross-origin"
+
+# ✅ Let these two files serve normally (no redirect trap)
 [[redirects]]
   from = "/ZInfinityAuth.js"
   to = "/ZInfinityAuth.js"
   status = 200
-  force = true
 
 [[redirects]]
   from = "/ZIAuth.html"
   to = "/ZIAuth.html"
   status = 200
-  force = true
 
-# ✅ everything else → fallback SPA page
+# ✅ Fallback for everything else → your popup SPA
 [[redirects]]
   from = "/*"
   to = "/ZIAuth.html"
