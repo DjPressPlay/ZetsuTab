@@ -1245,47 +1245,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <!-- ✅ External Scripts -->
 <script src="ztab-search.js" defer></script>
+<script src="/ZInfinityAuth.js" defer></script>
 
 <!-- ✅ Z-Infinity Auth Loader -->
-<!-- ✅ Z-Infinity Auth Loader -->
-<script
-  src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
-  defer
-  onload="
-    try {
-      if (!window.ZInfinityAuth) {
-        console.error('❌ ZInfinityAuth not found after load.');
-        return;
+<script defer>
+document.addEventListener("DOMContentLoaded", () => {
+  if (!window.ZInfinityAuth) {
+    console.error("❌ ZInfinityAuth not found after load.");
+    return;
+  }
+
+  // ✅ Initialize local auth
+  ZInfinityAuth.init({
+    client_id: "ztab",
+    callback: (session) => {
+      console.log("✅ Z-Auth linked:", session);
+    },
+  });
+
+  // ✅ Wait for first user click to open popup
+  let prompted = false;
+  window.addEventListener("click", () => {
+    if (!prompted) {
+      prompted = true;
+      try {
+        ZInfinityAuth.open();
+        console.log("🔹 Auth popup triggered by user interaction");
+      } catch (err) {
+        console.error("⚠️ Auth popup failed:", err);
       }
-
-      // ✅ Initialize auth
-      ZInfinityAuth.init({
-        client_id: 'ztab',
-        callback: (session) => {
-          console.log('✅ Z-Auth linked:', session);
-        }
-      });
-
-      // ✅ Wait for first user click → open popup
-      let prompted = false;
-      window.addEventListener('click', () => {
-        if (!prompted) {
-          prompted = true;
-          try {
-            ZInfinityAuth.open();
-            console.log('🔹 Auth popup triggered by user interaction');
-          } catch (err) {
-            console.error('⚠️ Auth popup failed:', err);
-          }
-        }
-      });
-
-      // ✅ Manual helpers
-      window.connectZTAB = () => ZInfinityAuth.open();
-      window.sendAction = () => ZInfinityAuth.log('search', { term: 'zetsu' });
-
-    } catch (err) {
-      console.error('❌ ZInfinityAuth init error:', err);
     }
-  "
-></script>
+  });
+
+  // ✅ Manual helpers
+  window.connectZTAB = () => ZInfinityAuth.open();
+  window.sendAction = () => ZInfinityAuth.log("search", { term: "zetsu" });
+});
+</script>
