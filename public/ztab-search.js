@@ -195,4 +195,3 @@ if (button2 && input2) {
       runJustAnswer(q);
     }
   });
-}
