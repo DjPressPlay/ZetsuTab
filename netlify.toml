@@ -6,27 +6,34 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# ✅ Allow anyone to load this JS across origins (ORB-safe)
+# ✅ Global security & CORS headers for Auth files
 [[headers]]
-  for = "/ZInfinityAuth.js"
+  for = "/*"
   [headers.values]
   Access-Control-Allow-Origin = "*"
   Access-Control-Allow-Methods = "GET, OPTIONS"
   Access-Control-Allow-Headers = "Content-Type"
-  Access-Control-Allow-Credentials = "true"
   Cross-Origin-Resource-Policy = "cross-origin"
   Cross-Origin-Embedder-Policy = "unsafe-none"
   Cross-Origin-Opener-Policy = "unsafe-none"
   Cache-Control = "public, max-age=3600"
 
-# ✅ Apply same rules to popup page
+# ✅ Allow ZInfinityAuth.js to be fetched from other sites
+[[headers]]
+  for = "/ZInfinityAuth.js"
+  [headers.values]
+  Content-Type = "application/javascript; charset=utf-8"
+  Access-Control-Allow-Origin = "*"
+  Cross-Origin-Resource-Policy = "cross-origin"
+
+# ✅ Let popup page embed cross-origin (used by ZTAB)
 [[headers]]
   for = "/ZIAuth.html"
   [headers.values]
   Access-Control-Allow-Origin = "*"
   Cross-Origin-Resource-Policy = "cross-origin"
 
-# ✅ Default fallback if needed
+# ✅ Fallback to popup
 [[redirects]]
   from = "/*"
   to = "/ZIAuth.html"
