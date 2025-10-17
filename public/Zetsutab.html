@@ -1135,6 +1135,55 @@
 <!-- ========== MAIN SCRIPT ========== -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+
+  
+  /* ==========================
+      🔐 AUTH FUNCTION CALL
+  =========================== */
+  async function handleSignup(email, password, displayName) {
+    try {
+      const res = await fetch("/.netlify/functions/encode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode: "signup",
+          email,
+          password,
+          display_name: displayName,
+          device_id: "ztab-browser"
+        })
+      });
+      const data = await res.json();
+      console.log("Signup result:", data);
+    } catch (err) {
+      console.error("Signup error:", err);
+    }
+  }
+
+  async function handleLogin(email, password) {
+    try {
+      const res = await fetch("/.netlify/functions/encode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode: "login",
+          email,
+          password,
+          device_id: "ztab-browser"
+        })
+      });
+      const data = await res.json();
+      console.log("Login result:", data);
+    } catch (err) {
+      console.error("Login error:", err);
+    }
+  }
+
+  // example test call (remove or replace with real form input later)
+  handleLogin("test@zetsu.com", "password123");
+
+
+  
   /* ==========================
       🔄 DROPDOWN TOGGLES
   =========================== */
