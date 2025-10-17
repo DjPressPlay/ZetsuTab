@@ -1232,32 +1232,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (results && center) {
     const observer = new MutationObserver(() => {
-      if (results.children.length > 0) {
-        center.style.position = "relative";
-        center.style.top = "auto";
-        center.style.left = "auto";
-        center.style.transform = "none";
-      } else {
-        center.style.position = "absolute";
-        center.style.top = "70%";
-        center.style.left = "50%";
-        center.style.transform = "translate(-50%, -55%)";
-      }
+      const hasResults = results.children.length > 0;
+      center.style.position = hasResults ? "relative" : "absolute";
+      center.style.top = hasResults ? "auto" : "70%";
+      center.style.left = hasResults ? "auto" : "50%";
+      center.style.transform = hasResults ? "none" : "translate(-50%, -55%)";
     });
     observer.observe(results, { childList: true });
   }
 });
 </script>
 
-<!-- ✅ External Scripts (placed after main script) -->
+<!-- ✅ External Scripts -->
 <script src="ztab-search.js" defer></script>
 
-<!-- ✅ Z-Infinity Auth — load and init only when ready -->
+<!-- ✅ Z-Infinity Auth Loader -->
 <script
- src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
+  src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
   defer
   onload="
-    if (window.ZInfinityAuth) {
+    try {
+      if (!window.ZInfinityAuth) {
+        console.error('❌ ZInfinityAuth not found after load.');
+        return;
+      }
+
+      // ✅ Initialize
       ZInfinityAuth.init({
         client_id: 'ztab',
         callback: (session) => {
@@ -1265,22 +1265,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // 🔹 Auto-prompt when page loads
+      // ✅ Auto-open popup on page load
       window.addEventListener('load', () => {
-        // wait a moment to ensure UI is ready
         setTimeout(() => {
           try {
-            ZInfinityAuth.open(); // directly opens your auth popup
+            ZInfinityAuth.open();
           } catch (err) {
-            console.error('Auth popup blocked or failed:', err);
+            console.error('⚠️ Auth popup blocked or failed:', err);
           }
-        }, 800); // delay ~0.8s for smooth load
+        }, 800);
       });
 
+      // ✅ Expose helpers globally
       window.connectZTAB = () => ZInfinityAuth.open();
       window.sendAction = () => ZInfinityAuth.log('search', { term: 'zetsu' });
-    } else {
-      console.error('❌ ZInfinityAuth failed to load.');
+
+    } catch (err) {
+      console.error('❌ ZInfinityAuth init error:', err);
     }
   "
 ></script>
+
