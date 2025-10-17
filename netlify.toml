@@ -1,7 +1,3 @@
-lol that broke the whole app try again 
-
-
-
 [build]
   # No build step. We serve static files from /public.
   publish = "public"
