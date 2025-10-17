@@ -162,17 +162,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ======================================================
-  // EVENT LISTENERS (run both normal + AI search)
-  // ======================================================
+ // ======================================================
+// EVENT LISTENERS (safe guarded for all inputs/buttons)
+// ======================================================
+if (button && input) {
   button.addEventListener("click", () => {
     const q = input.value.trim();
-    runSearch(q);
-    runJustAnswer(q);
-  });
-
-  button2.addEventListener("click", () => {
-    const q = input2.value.trim();
     runSearch(q);
     runJustAnswer(q);
   });
@@ -184,6 +179,14 @@ document.addEventListener("DOMContentLoaded", () => {
       runJustAnswer(q);
     }
   });
+}
+
+if (button2 && input2) {
+  button2.addEventListener("click", () => {
+    const q = input2.value.trim();
+    runSearch(q);
+    runJustAnswer(q);
+  });
 
   input2.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -192,4 +195,4 @@ document.addEventListener("DOMContentLoaded", () => {
       runJustAnswer(q);
     }
   });
-});
+}
