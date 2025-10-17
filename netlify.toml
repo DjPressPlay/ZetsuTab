@@ -1,19 +1,24 @@
 [build]
-  # No build step. We serve static files from /public.
   publish = "public"
 
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# API routes → Netlify Functions
+# Serve JS file directly (avoid catch-all intercept)
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/ZInfinityAuth.js"
+  to = "/ZInfinityAuth.js"
   status = 200
 
-# SPA fallback (Zetsu Start)
+# Serve popup page normally
+[[redirects]]
+  from = "/ZIAuth.html"
+  to = "/ZIAuth.html"
+  status = 200
+
+# Catch-all falls back to your popup main page
 [[redirects]]
   from = "/*"
-  to = "/Zetsutab.html"
+  to = "/ZIAuth.html"
   status = 200
