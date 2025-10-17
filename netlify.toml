@@ -1,19 +1,30 @@
-
 [build]
-  # No build step. We serve static files from /public.
   publish = "public"
 
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# API routes → Netlify Functions
+# API routes
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
-# SPA fallback (Zetsu Start)
+# ✅ allow auth script + popup to pass through before SPA redirect
+[[redirects]]
+  from = "/ZInfinityAuth.js"
+  to = "https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/ZIAuth.html"
+  to = "https://zetsuinfinityauth.netlify.app/ZIAuth.html"
+  status = 200
+  force = true
+
+# ✅ everything else → SPA
 [[redirects]]
   from = "/*"
   to = "/Zetsutab.html"
