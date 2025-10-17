@@ -1247,6 +1247,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script src="ztab-search.js" defer></script>
 
 <!-- ✅ Z-Infinity Auth Loader -->
+<!-- ✅ Z-Infinity Auth Loader -->
 <script
   src="https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
   defer
@@ -1257,7 +1258,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // ✅ Initialize
+      // ✅ Initialize auth
       ZInfinityAuth.init({
         client_id: 'ztab',
         callback: (session) => {
@@ -1265,18 +1266,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      // ✅ Auto-open popup on page load
-      window.addEventListener('load', () => {
-        setTimeout(() => {
+      // ✅ Wait for first user click → open popup
+      let prompted = false;
+      window.addEventListener('click', () => {
+        if (!prompted) {
+          prompted = true;
           try {
             ZInfinityAuth.open();
+            console.log('🔹 Auth popup triggered by user interaction');
           } catch (err) {
-            console.error('⚠️ Auth popup blocked or failed:', err);
+            console.error('⚠️ Auth popup failed:', err);
           }
-        }, 800);
+        }
       });
 
-      // ✅ Expose helpers globally
+      // ✅ Manual helpers
       window.connectZTAB = () => ZInfinityAuth.open();
       window.sendAction = () => ZInfinityAuth.log('search', { term: 'zetsu' });
 
@@ -1285,4 +1289,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   "
 ></script>
-
