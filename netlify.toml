@@ -5,27 +5,21 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# API routes
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-# ✅ allow auth script + popup to pass through before SPA redirect
+# ✅ allow JS and popup HTML to pass through normally
 [[redirects]]
   from = "/ZInfinityAuth.js"
-  to = "https://zetsuinfinityauth.netlify.app/ZInfinityAuth.js"
+  to = "/ZInfinityAuth.js"
   status = 200
   force = true
 
 [[redirects]]
   from = "/ZIAuth.html"
-  to = "https://zetsuinfinityauth.netlify.app/ZIAuth.html"
+  to = "/ZIAuth.html"
   status = 200
   force = true
 
-# ✅ everything else → SPA
+# ✅ everything else → fallback SPA page
 [[redirects]]
   from = "/*"
-  to = "/Zetsutab.html"
+  to = "/ZIAuth.html"
   status = 200
