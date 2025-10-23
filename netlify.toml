@@ -15,5 +15,5 @@
 # SPA fallback (Zetsu Start)
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/zetsutab.html"
   status = 200
